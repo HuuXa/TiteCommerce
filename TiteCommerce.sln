@@ -3,9 +3,28 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{218194DA-0D7E-42E5-A614-321784ED9394}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{D4BA5B8D-AF4C-407D-BDFE-F4F309DAE789}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteCommerce.Admin", "LiteCommerce.Admin\LiteCommerce.Admin.csproj", "{BC2F4081-25B4-42B8-A194-0C4FA87E9ED4}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC2F4081-25B4-42B8-A194-0C4FA87E9ED4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC2F4081-25B4-42B8-A194-0C4FA87E9ED4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC2F4081-25B4-42B8-A194-0C4FA87E9ED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC2F4081-25B4-42B8-A194-0C4FA87E9ED4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BC2F4081-25B4-42B8-A194-0C4FA87E9ED4} = {218194DA-0D7E-42E5-A614-321784ED9394}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92FE6A35-98D6-42BD-8623-484DF394937A}
