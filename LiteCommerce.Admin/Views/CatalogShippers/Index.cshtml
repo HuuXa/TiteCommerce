@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "Manege Shipper";
+}
+<div class="box box-primary">
+
+    <!-- /.box-header -->
+    <!-- form start -->
+
+    <div class="box-body">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Searh...">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-info btn-flat">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+    <!-- /.box-body -->
+</div>
+<div class="container-fluid row" style="padding-bottom:10px">
+    <div class="col-sm-8">
+        there are <b>1,000</b>  Shipper. Page 1/100
+    </div>
+    <div class="col-sm-4 text-right">
+        <div class="btn-group">
+            <a href="~/catalogshippers/Input" class="btn btn-sm btn-primary">Add Shipper </a>
+            <button type="button" class="btn btn-sm btn-danger">Delete Shipper</button>
+
+        </div>
+    </div>
+</div>
+<div class="box box-success">
+    <div class="box-body">
+        <table class="table table-bordered table-striped dataTable">
+            <thead>
+                <tr>
+                    <th style="width:30px">
+                        <input type="checkbox" />
+                    </th>
+                    <th style="width:50px">
+                        #
+                    </th>
+                    <th style="width:250px">
+                        Compay Name
+                    </th>
+                    <th style="width:300px">
+                        Phone
+                    </th>
+                    <th style="width:80px">
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 1; i <= 3; i++)
+                {
+                    <tr class="even" role="row"   >
+                        <td class="sorting_1">
+                            <input type="checkbox" />
+                        </td>
+                        <td>@i</td>
+                        <td>
+                          
+                            <span style="color:#646464; font-weight:bold">
+                                Speedy Express
+                            </span>
+                        </td>
+                     
+                        <td>
+                            <span style="display:block"><i class="fa fa-phone" style="padding-right:5px"></i>(503) 555-9831</span>
+
+                        </td>
+                        <td class="text-right">
+
+                            <a class="btn btn-sm btn-default" href="~/catalogshippers/Input/@i">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>}
+
+            </tbody>
+        </table>
+    </div>
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin  pull-right">
+            <li>
+                <a>
+                    <
+                </a>
+            </li>
+            <li>
+                <a>
+                    1
+                </a>
+            </li>
+            <li>
+                <a>
+                    2
+                </a>
+            </li>
+            <li>
+                <a>
+                    3
+                </a>
+            </li>
+            <li>
+                <a>
+                    >
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+

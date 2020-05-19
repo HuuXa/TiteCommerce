@@ -7,10 +7,10 @@ using System.Web.Mvc;
 namespace LiteCommerce.Admin.Controllers
 {
      [Authorize]
-    public class EmplogesController : Controller
+    public class OrderController : Controller
     {
-        // GET: Emploges
-        public ActionResult Index()
+        // GET: Order
+        public ActionResult Create()
         {
             return View();
         }

@@ -6,17 +6,10 @@ using System.Web.Mvc;
 
 namespace LiteCommerce.Admin.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    [Authorize]
-    public class DashboardController : Controller
+     [Authorize]
+    public class OrderListController : Controller
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        // GET: Dashboard
+        // GET: OrderList
         public ActionResult Index()
         {
             return View();

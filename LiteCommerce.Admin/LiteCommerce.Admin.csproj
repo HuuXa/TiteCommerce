@@ -128,13 +128,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\CatulogShippersController.cs" />
-    <Compile Include="Controllers\CatulogSuppliersController.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CatalogCategoriesController.cs" />
+    <Compile Include="Controllers\CatalogCustomersController.cs" />
+    <Compile Include="Controllers\CatalogProductController.cs" />
+    <Compile Include="Controllers\CatalogShippersController.cs" />
+    <Compile Include="Controllers\CatalogSuppliersController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EmplogesController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OralersController.cs" />
+    <Compile Include="Controllers\ForgetPasswordController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\OrderListController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -173,36 +178,47 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_SideBar.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_ControlSideBar.cshtml" />
-    <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Shared\_Dashboard.cshtml" />
-    <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\CatulogSuppliers\Index.cshtml" />
-    <Content Include="Views\Shared\_Catulog.cshtml" />
-    <Content Include="Views\Shared\_CatulogSuppliers.cshtml" />
-    <Content Include="Views\Shared\_CarulogCustumer.cshtml" />
-    <Content Include="Views\Shared\_CarulogShippers.cshtml" />
-    <Content Include="Views\CatulogShippers\Index.cshtml" />
-    <Content Include="Views\List\Index.cshtml" />
-    <Content Include="Views\Oralers\list.cshtml" />
-    <Content Include="Views\Oralers\creatr.cshtml" />
+    <Content Include="Views\Shared\_Catalog.cshtml" />
+    <Content Include="Views\Shared\_CatalogSuppliers.cshtml" />
+    <Content Include="Views\Shared\_CatalogCustumer.cshtml" />
+    <Content Include="Views\Shared\_CatalogShippers.cshtml" />
     <Content Include="Views\Shared\_OralersList.cshtml" />
     <Content Include="Views\Shared\_OralersCreatr.cshtml" />
     <Content Include="Views\Shared\_Emploges.cshtml" />
+    <Content Include="Views\Shared\_Product.cshtml" />
+    <Content Include="Views\Shared\_Report.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Account\ChangePwd.cshtml" />
+    <Content Include="Views\CatalogSuppliers\Index.cshtml" />
+    <Content Include="Views\CatalogCustomers\Index.cshtml" />
+    <Content Include="Views\CatalogProduct\Index.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Order\Create.cshtml" />
+    <Content Include="Views\CatalogShippers\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\OrderList\Index.cshtml" />
     <Content Include="Views\Emploges\Index.cshtml" />
+    <Content Include="Views\Shared\_CatalogCategories.cshtml" />
+    <Content Include="Views\CatalogCategories\Index.cshtml" />
+    <Content Include="Views\CatalogSuppliers\Input.cshtml" />
+    <Content Include="Views\CatalogCustomers\Input.cshtml" />
+    <Content Include="Views\CatalogShippers\Input.cshtml" />
+    <Content Include="Views\CatalogCategories\Input.cshtml" />
+    <Content Include="Views\CatalogProduct\Input.cshtml" />
+    <Content Include="Views\Account\InputProfile.cshtml" />
+    <Content Include="Views\ForgetPassword\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\" />
     <Folder Include="Models\" />
-    <Folder Include="Themes\AdminLTE\" />
-    <Folder Include="Views\CatulogCustumer\" />
+    <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -219,6 +235,20 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LiteCommerce.BusinessLayers\LiteCommerce.BusinessLayers.csproj">
+      <Project>{3a0bbd5e-ce0b-4323-8880-9a5bb8c57e20}</Project>
+      <Name>LiteCommerce.BusinessLayers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LiteCommerce.DataLayers\LiteCommerce.DataLayers.csproj">
+      <Project>{2bd951b7-dbf7-4445-b6c4-49d05529a472}</Project>
+      <Name>LiteCommerce.DataLayers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LiteCommerce.DomainModels\LiteCommerce.DomainModels.csproj">
+      <Project>{8cbb22cf-ee81-4b2c-baf5-c4c8fd0c39c4}</Project>
+      <Name>LiteCommerce.DomainModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,153 @@
+﻿
+@{
+    ViewBag.Title = "Manage Product";
+}
+<div class="box box-primary">
+
+    <!-- /.box-header -->
+    <!-- form start -->
+
+    <div class="box-body">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="input searh...">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-info btn-flat">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+    <!-- /.box-body -->
+</div>
+<div class="container-fluid row" style="padding-bottom:10px">
+    <div class="col-sm-8">
+        there are <b>1,000</b>  Product. Page 1/100
+    </div>
+    <div class="col-sm-4 text-right">
+        <div class="btn-group">
+            <a href="~/catalogproduct/Input" class="btn btn-sm btn-primary">Add Customers</a>
+            <button type="button" class="btn btn-sm btn-danger">Delete Customers</button>
+
+        </div>
+    </div>
+</div>
+<div class="box box-success">
+    <div class="box-body">
+        <table class="table table-bordered table-hover dataTable">
+            <thead>
+                <tr>
+                    <th style="width:30px">
+                        <input type="checkbox" />
+                    </th>
+                    <th style="width:50px">
+                        #
+                    </th>
+                    <th style="width:50px">
+                        Name
+                    </th>
+                    <th style="width:10px">
+                        SupplierID
+                    </th>
+                    <th style="width:10px">
+                        CategoryID
+                    </th>
+                    <th style="width:auto">
+                        Quantity per unit
+                    </th>
+                    <th style="width:auto">
+                        Unit  price
+                    </th>
+                    <th style="width:auto">
+                        Descriptions
+                    </th>
+                    <th style="width:auto">
+                        Photo Path
+                    </th>
+                    <th style="width:80px">
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 1; i <= 3; i++)
+                {
+                <tr>
+                    <td>
+                        <input type="checkbox" />
+                    </td>
+                    <td>@i</td>
+                    <td>
+                        <span style="width:50px;color:#0094ff; font-weight:bold; display:block">Jack's New England Clam Chowder </span>
+                    </td>
+                    <td>
+                        <span>1</span>
+
+                    </td>
+                    <td>
+                        <span>1</span>
+
+                    </td>
+                    <td>
+                        <span>10 boxes x 20 bags</span>
+
+                    </td>
+                    <td>
+                        <span>18.0000</span>
+
+                    </td>
+
+                    <td>
+                        <span style="display:block">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+                    </td>
+                    <td>
+                        <span><img src="~/Themes/AdminLTE/dist/img/avatar5.png"/></span>
+
+                    </td>
+                    <td class="text-right">
+
+                        <a class="btn btn-sm btn-default" href="~/catalogproduct/Input/@i">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>}
+
+            </tbody>
+        </table>
+    </div>
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin  pull-right">
+            <li>
+                <a>
+                    <
+                </a>
+            </li>
+            <li>
+                <a>
+                    1
+                </a>
+            </li>
+            <li>
+                <a>
+                    2
+                </a>
+            </li>
+            <li>
+                <a>
+                    3
+                </a>
+            </li>
+            <li>
+                <a>
+                    >
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+

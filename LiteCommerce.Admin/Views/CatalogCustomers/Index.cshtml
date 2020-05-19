@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "Manage Customers ";
+}
+<div class="box box-primary">
+
+    <!-- /.box-header -->
+    <!-- form start -->
+
+    <div class="box-body">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="input searh...">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-info btn-flat">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+    <!-- /.box-body -->
+</div>
+<div class="container-fluid row" style="padding-bottom:10px">
+    <div class="col-sm-8">
+        there are <b>1,000</b>  Customers. Page 1/100
+    </div>
+    <div class="col-sm-4 text-right">
+        <div class="btn-group">
+            <a href="~/catalogcustomers/Input" class="btn btn-sm btn-primary">Add Customers</a>
+            <button type="button" class="btn btn-sm btn-danger">Delete Customers</button>
+
+        </div>
+    </div>
+</div>
+<div class="box box-success">
+    <div class="box-body">
+        <table class="table table-bordered table-hover dataTable">
+            <thead>
+                <tr>
+                    <th style="width:30px">
+                        <input type="checkbox" />
+                    </th>
+                    <th style="width:50px">
+                        #
+                    </th>
+                    <th style="width:250px">
+                        name
+                    </th>
+                    <th style="width:300px">
+                        Address
+                    </th>
+                    <th style="width:auto">
+                        Comtact info
+                    </th>
+                    <th style="width:80px">
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 1; i <= 3; i++)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" />
+                        </td>
+                        <td>@i</td>
+                        <td>
+                            <span style="color:#0094ff; font-weight:bold; display:block">new OrLEANS AJUN delight </span>
+                            <span style="color:#646464">
+                                Order Adminstrator
+                            </span>
+                            <span style="color:#646464; font-weight:bold">
+                                Shelley burke
+                            </span>
+                        </td>
+                        <td>
+                            <span>P.O box 78934</span>
+                            <span>new Qrleans - USA</span>
+                        </td>
+                        <td>
+                            <span style="display:block"><i class="fa fa-phone" style="padding-right:5px"></i>(100) 555-4822</span>
+                            <span style="display:block"><i class="fa fa-fax" style="padding-right:5px"></i>(100) 555-4822</span>
+                            <span style="display:block"><i class="fa fa-link" style="padding-right:5px"></i>fb.com</span>
+                        </td>
+                        <td class="text-right">
+
+                            <a class="btn btn-sm btn-default" href="~/catalogcustomers/Input/@i">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>}
+
+            </tbody>
+        </table>
+    </div>
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin  pull-right">
+            <li>
+                <a>
+                    <
+                </a>
+            </li>
+            <li>
+                <a>
+                    1
+                </a>
+            </li>
+            <li>
+                <a>
+                    2
+                </a>
+            </li>
+            <li>
+                <a>
+                    3
+                </a>
+            </li>
+            <li>
+                <a>
+                    >
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+

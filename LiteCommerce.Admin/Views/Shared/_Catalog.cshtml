@@ -1,0 +1,18 @@
+﻿
+
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-pie-chart"></i>
+        <span>Catalog</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        @{ Html.RenderPartial("_CatalogSuppliers");}
+        @{ Html.RenderPartial("_CatalogCustumer");}
+        @{ Html.RenderPartial("_CatalogShippers");}
+        @{ Html.RenderPartial("_CatalogCategories");}
+        @{ Html.RenderPartial("_Product");}
+    </ul>
+</li>

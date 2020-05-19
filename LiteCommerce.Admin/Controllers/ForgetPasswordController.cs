@@ -6,17 +6,9 @@ using System.Web.Mvc;
 
 namespace LiteCommerce.Admin.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    [Authorize]
-    public class DashboardController : Controller
+    public class ForgetPasswordController : Controller
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        // GET: Dashboard
+        // GET: ForgetPassword
         public ActionResult Index()
         {
             return View();
