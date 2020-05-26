@@ -1,6 +1,7 @@
-﻿
+﻿@model LiteCommerce.Admin.Models.CustomerPaginationResult
 @{
     ViewBag.Title = "Manage Customers ";
+    int i = 0;
 }
 <div class="box box-primary">
 
@@ -8,20 +9,22 @@
     <!-- form start -->
 
     <div class="box-body">
-        <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="input searh...">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-info btn-flat">
-                    <i class="glyphicon glyphicon-search"></i>
-                </button>
-            </span>
-        </div>
+        <form action="~/catalogcustomers" method="get">
+            <div class="input-group input-group-sm">
+                <input type="text" name="searchValue" class="form-control" placeholder="Input search value...">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
     </div>
     <!-- /.box-body -->
 </div>
 <div class="container-fluid row" style="padding-bottom:10px">
     <div class="col-sm-8">
-        there are <b>1,000</b>  Customers. Page 1/100
+        there are <b>@Model.RowCount</b>  Customers. Page @Model.Page/@Model.PageCount
     </div>
     <div class="col-sm-4 text-right">
         <div class="btn-group">
@@ -57,30 +60,30 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 1; i <= 3; i++)
+                @foreach (var item in Model.Data)
                 {
                     <tr>
                         <td>
                             <input type="checkbox" />
                         </td>
-                        <td>@i</td>
+                        <td>@(++i)</td>
                         <td>
-                            <span style="color:#0094ff; font-weight:bold; display:block">new OrLEANS AJUN delight </span>
+                            <span style="color:#0094ff; font-weight:bold; display:block">@item.CompanyName</span>
                             <span style="color:#646464">
-                                Order Adminstrator
+                                @item.ContactName
                             </span>
                             <span style="color:#646464; font-weight:bold">
-                                Shelley burke
+                                @item.ContactTitle
                             </span>
                         </td>
                         <td>
-                            <span>P.O box 78934</span>
-                            <span>new Qrleans - USA</span>
+                            <span>@item.Address</span>
+                            <span>@item.City - @item.Country</span>
                         </td>
                         <td>
-                            <span style="display:block"><i class="fa fa-phone" style="padding-right:5px"></i>(100) 555-4822</span>
-                            <span style="display:block"><i class="fa fa-fax" style="padding-right:5px"></i>(100) 555-4822</span>
-                            <span style="display:block"><i class="fa fa-link" style="padding-right:5px"></i>fb.com</span>
+                            <span style="display:block"><i class="fa fa-phone" style="padding-right:5px"></i>@item.Phone</span>
+                            <span style="display:block"><i class="fa fa-fax" style="padding-right:5px"></i>@item.Fax</span>
+                 
                         </td>
                         <td class="text-right">
 
@@ -94,32 +97,13 @@
         </table>
     </div>
     <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm no-margin  pull-right">
-            <li>
-                <a>
-                    <
-                </a>
-            </li>
-            <li>
-                <a>
-                    1
-                </a>
-            </li>
-            <li>
-                <a>
-                    2
-                </a>
-            </li>
-            <li>
-                <a>
-                    3
-                </a>
-            </li>
-            <li>
-                <a>
-                    >
-                </a>
-            </li>
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="~/CatalogCustomers?page=1">«</a></li>
+            @for (int page = 1; page < Model.PageCount; page++)
+            {
+                <li><a href="~/CatalogCustomers?page=@page">@page</a></li>
+            }
+            <li><a href="~/CatalogCustomers?page=@Model.PageCount">»</a></li>
         </ul>
     </div>
 </div>

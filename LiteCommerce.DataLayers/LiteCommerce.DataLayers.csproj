@@ -41,8 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICategorieDAL.cs" />
+    <Compile Include="ICustomerDAL.cs" />
+    <Compile Include="IEmployeeDAL.cs" />
+    <Compile Include="IOrderDAL.cs" />
+    <Compile Include="IOrderDetailDAL.cs" />
+    <Compile Include="IProductAttributeDAL.cs" />
+    <Compile Include="IProductDAL.cs" />
+    <Compile Include="IShipperDAL.cs" />
     <Compile Include="ISupplierDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServer\CategorieDAL.cs" />
+    <Compile Include="SqlServer\CustomerDAL.cs" />
+    <Compile Include="SqlServer\EmployeeDAL.cs" />
+    <Compile Include="SqlServer\OrderDAL.cs" />
+    <Compile Include="SqlServer\OrderDetailDAL.cs" />
+    <Compile Include="SqlServer\ProductAttributeDAL.cs" />
+    <Compile Include="SqlServer\ProductDAL.cs" />
+    <Compile Include="SqlServer\ShipperDAL.cs" />
     <Compile Include="SqlServer\SupplierDAL.cs" />
   </ItemGroup>
   <ItemGroup>

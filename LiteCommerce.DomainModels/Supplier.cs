@@ -47,7 +47,7 @@ namespace LiteCommerce.DomainModels
         /// <summary>
         /// 
         /// </summary>
-        public string homepage { get; set; }
+        public string Homepage { get; set; }
         /// <summary>
         /// 
         /// </summary>

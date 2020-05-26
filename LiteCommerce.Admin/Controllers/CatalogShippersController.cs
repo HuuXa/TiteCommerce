@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiteCommerce.BusinessLayers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,9 +11,16 @@ namespace LiteCommerce.Admin.Controllers
     public class CatalogShippersController : Controller
     {
         // GET: CatalogShippers
-        public ActionResult Index()
+        public ActionResult Index(int page =1, string searchValue = "")
         {
-            return View();
+            var model = new Models.ShipperPaginationResult()
+            {
+                Page = page,
+                PageSize = AppSettings.DefaultPageSize,
+                RowCount = CatalogBLL.Shipper_Count(searchValue),
+                Data = CatalogBLL.Shipper_List(page, AppSettings.DefaultPageSize, searchValue)
+            };
+            return View(model);
         }
 
         public ActionResult Input(string id = "")

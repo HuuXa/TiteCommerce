@@ -9,29 +9,23 @@ using LiteCommerce.DomainModels;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
-    /// <summary>
-    /// để giao tiếp với csdl kết nối
-    /// </summary>
-    public class SupplierDAL : ISupplierDAL
+    public class CustomerDAL : ICustomerDAL
     {
-        private string connectionString;
+        public string connectionString;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="connectióntring"></param>
-        public SupplierDAL( string connectionString)
+        public CustomerDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public int Add(Supplier data)
+
+        public int Add(Customer data)
         {
             throw new NotImplementedException();
         }
+
         public int Count(string searchValue)
         {
             int count = 0;
@@ -42,7 +36,7 @@ namespace LiteCommerce.DataLayers.SqlServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"SELECT COUNT(*) FROM dbo.Suppliers
+                    cmd.CommandText = @"SELECT COUNT(*) FROM dbo.Customers
                                        WHERE (@searchValue = N'') OR (CompanyName LIKE @searchValue)";
                     cmd.CommandType = System.Data.CommandType.Text;
                     cmd.Connection = connection;
@@ -54,67 +48,48 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return count;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="supplierIDs"></param>
-        /// <returns></returns>
-        public bool Delete(int[] supplierIDs)
+
+        public bool Delete(int[] customerIDs)
         {
             throw new NotImplementedException();
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="supplierID"></param>
-        /// <returns></returns>
-        public Supplier Get(int supplierID)
+
+
+        public Customer Get(int customerID)
         {
             throw new NotImplementedException();
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="page"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="searchValue"></param>
-        /// <returns></returns>
-        public List<Supplier> List(int page, int pageSize, string searchValue)
+
+        public List<Customer> List(int page, int pageSize, string searchValue)
         {
-            List<Supplier> data = new List<Supplier>();
+            List<Customer> data = new List<Customer>();
             if (!string.IsNullOrEmpty(searchValue))
                 searchValue = "%" + searchValue + "%";
-            //TODO: truy vấn dữ liệu từ database
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using(SqlCommand cmd = new SqlCommand())
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"select*
-                                        from
+                    cmd.CommandText = @"SELECT * FROM 
                                         (
-
-                                            select *,
-                                                ROW_NUMBER() over(order by SupplierID) as RowNumber
-                                            from Suppliers
-                                            where (@searchValue = N'')
-                                                or (CompanyName like @searchValue)
-                                        ) as t
-                                         where t.RowNumber between (@page - 1)*@pageSize +1 and @page*@pageSize
-                                         order by t.RowNumber";
+	                                        SELECT *, ROW_NUMBER() OVER(ORDER BY CustomerID) AS RowNumber
+	                                        FROM dbo.Customers
+	                                        WHERE (@searchValue = N'') OR (CompanyName LIKE @searchValue)
+                                        )AS t  WHERE t.RowNumber BETWEEN (@page - 1) * @pageSize + 1 AND (@page * @pageSize)
+                                        ORDER BY t.RowNumber";
                     cmd.CommandType = System.Data.CommandType.Text;
                     cmd.Connection = connection;
                     cmd.Parameters.AddWithValue("@page", page);
                     cmd.Parameters.AddWithValue("@pageSize", pageSize);
                     cmd.Parameters.AddWithValue("@searchValue", searchValue);
-                    using(SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+
+                    using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         while (dbReader.Read())
                         {
-                            data.Add(new Supplier()
-                            {
-                                SupplierID = Convert.ToInt32(dbReader["SupplierID"]),
+                            data.Add(new Customer()
+                            {                                                                CustomerID = Convert.ToString(dbReader["CustomerID"]),
                                 CompanyName = Convert.ToString(dbReader["CompanyName"]),
                                 ContactName = Convert.ToString(dbReader["ContactName"]),
                                 ContactTitle = Convert.ToString(dbReader["ContactTitle"]),
@@ -122,26 +97,19 @@ namespace LiteCommerce.DataLayers.SqlServer
                                 City = Convert.ToString(dbReader["City"]),
                                 Country = Convert.ToString(dbReader["Country"]),
                                 Phone = Convert.ToString(dbReader["Phone"]),
-                                Fax = Convert.ToString(dbReader["Fax"]),
-                                Homepage = Convert.ToString(dbReader["Homepage"])
-
+                                Fax = Convert.ToString(dbReader["Fax"])
                             });
                         }
                     }
                 }
                 connection.Close();
             }
-                return data;
+            return data;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public bool Update(Supplier data)
+
+        public bool Update(Customer data)
         {
             throw new NotImplementedException();
         }
-        
     }
 }

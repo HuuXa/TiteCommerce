@@ -12,14 +12,16 @@ namespace LiteCommerce.DataLayers.SqlServer
     /// <summary>
     /// để giao tiếp với csdl kết nối
     /// </summary>
-    public class SupplierDAL : ISupplierDAL
+    public class ShipperDAL : IShipperDAL
     {
-        private string connectionString;
+     
+        public string connectionString;
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="connectióntring"></param>
-        public SupplierDAL( string connectionString)
+        /// <param name="connectionString"></param>
+        public ShipperDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
@@ -28,10 +30,15 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public int Add(Supplier data)
+        public int Add(Shipper data)
         {
             throw new NotImplementedException();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         public int Count(string searchValue)
         {
             int count = 0;
@@ -42,7 +49,7 @@ namespace LiteCommerce.DataLayers.SqlServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"SELECT COUNT(*) FROM dbo.Suppliers
+                    cmd.CommandText = @"SELECT COUNT(*) FROM dbo.Shippers
                                        WHERE (@searchValue = N'') OR (CompanyName LIKE @searchValue)";
                     cmd.CommandType = System.Data.CommandType.Text;
                     cmd.Connection = connection;
@@ -54,24 +61,27 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return count;
         }
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="supplierIDs"></param>
+        /// <param name="shipperIDs"></param>
         /// <returns></returns>
-        public bool Delete(int[] supplierIDs)
+        public bool Delete(int[] shipperIDs)
         {
             throw new NotImplementedException();
         }
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="supplierID"></param>
+        /// <param name="shipperID"></param>
         /// <returns></returns>
-        public Supplier Get(int supplierID)
+        public Shipper Get(int shipperID)
         {
             throw new NotImplementedException();
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -79,69 +89,55 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <param name="pageSize"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public List<Supplier> List(int page, int pageSize, string searchValue)
+        public List<Shipper> List(int page, int pageSize, string searchValue)
         {
-            List<Supplier> data = new List<Supplier>();
+            List<Shipper> data = new List<Shipper>();
             if (!string.IsNullOrEmpty(searchValue))
                 searchValue = "%" + searchValue + "%";
-            //TODO: truy vấn dữ liệu từ database
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using(SqlCommand cmd = new SqlCommand())
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"select*
-                                        from
+                    cmd.CommandText = @"SELECT * FROM 
                                         (
-
-                                            select *,
-                                                ROW_NUMBER() over(order by SupplierID) as RowNumber
-                                            from Suppliers
-                                            where (@searchValue = N'')
-                                                or (CompanyName like @searchValue)
-                                        ) as t
-                                         where t.RowNumber between (@page - 1)*@pageSize +1 and @page*@pageSize
-                                         order by t.RowNumber";
+	                                        SELECT *, ROW_NUMBER() OVER(ORDER BY ShipperID) AS RowNumber
+	                                        FROM dbo.Shippers
+	                                        WHERE (@searchValue = N'') OR (CompanyName LIKE @searchValue)
+                                        )AS t  WHERE t.RowNumber BETWEEN (@page - 1) * @pageSize + 1 AND (@page * @pageSize)
+                                        ORDER BY t.RowNumber";
                     cmd.CommandType = System.Data.CommandType.Text;
                     cmd.Connection = connection;
                     cmd.Parameters.AddWithValue("@page", page);
                     cmd.Parameters.AddWithValue("@pageSize", pageSize);
                     cmd.Parameters.AddWithValue("@searchValue", searchValue);
-                    using(SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+
+                    using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         while (dbReader.Read())
                         {
-                            data.Add(new Supplier()
+                            data.Add(new Shipper()
                             {
-                                SupplierID = Convert.ToInt32(dbReader["SupplierID"]),
+                                ShipperID = Convert.ToInt32(dbReader["ShipperID"]),
                                 CompanyName = Convert.ToString(dbReader["CompanyName"]),
-                                ContactName = Convert.ToString(dbReader["ContactName"]),
-                                ContactTitle = Convert.ToString(dbReader["ContactTitle"]),
-                                Address = Convert.ToString(dbReader["Address"]),
-                                City = Convert.ToString(dbReader["City"]),
-                                Country = Convert.ToString(dbReader["Country"]),
-                                Phone = Convert.ToString(dbReader["Phone"]),
-                                Fax = Convert.ToString(dbReader["Fax"]),
-                                Homepage = Convert.ToString(dbReader["Homepage"])
-
+                                Phone = Convert.ToString(dbReader["Phone"])
                             });
                         }
                     }
                 }
                 connection.Close();
             }
-                return data;
+            return data;
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public bool Update(Supplier data)
+        public bool Update(Shipper data)
         {
             throw new NotImplementedException();
         }
-        
     }
 }

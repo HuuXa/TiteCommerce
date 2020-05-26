@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiteCommerce.BusinessLayers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,9 +11,23 @@ namespace LiteCommerce.Admin.Controllers
     public class CatalogCustomersController : Controller
     {
         // GET: CatalogCustomers
-        public ActionResult Index()
+
+        /// <summary>
+        /// trang hiển thị các customer , với các link chức năng liên quan  
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
+        public ActionResult Index(int page = 1, string searchValue = "")
         {
-            return View();
+            var model = new Models.CustomerPaginationResult()
+            {
+                Page = page,
+                PageSize = AppSettings.DefaultPageSize,
+                RowCount = CatalogBLL.Customer_Count(searchValue),
+                Data = CatalogBLL.Customer_List(page, AppSettings.DefaultPageSize, searchValue)
+            };
+            return View(model);
         }
         public ActionResult Input(string id = "")
         {

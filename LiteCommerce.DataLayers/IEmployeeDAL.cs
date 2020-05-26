@@ -7,32 +7,32 @@ using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayers
 {
-    public interface ISupplierDAL
+    public interface IEmployeeDAL
     {
         /// <summary>
-        /// bổ sung thêm 1 cái supplier
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns>ID của supplier được bổ sung( nhỏ hơn or = 0 nếu lỗi)</returns>
-        int Add(Supplier data);
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        bool Update(Supplier data);
+        int Add(Employee data);
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="supplierIDs"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        bool Delete(int[] supplierIDs);
+        bool Update(Employee data);
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="supplierID"></param>
+        /// <param name="employeeIDs"></param>
         /// <returns></returns>
-        Supplier Get(int supplierID);
+        bool Delete(int[] employeeIDs);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employeeID"></param>
+        /// <returns></returns>
+        Employee Get(int employeeID);
         /// <summary>
         /// 
         /// </summary>
@@ -40,7 +40,12 @@ namespace LiteCommerce.DataLayers
         /// <param name="pageSize"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        List<Supplier> List(int page, int pageSize, string searchValue );
+        List<Employee> List(int page, int pageSize, string searchValue);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         int Count(string searchValue);
     }
 }

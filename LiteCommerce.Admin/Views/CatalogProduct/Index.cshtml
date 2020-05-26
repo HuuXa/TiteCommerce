@@ -1,6 +1,7 @@
-﻿
+﻿@model LiteCommerce.Admin.Models.ProductPaginationResult    
 @{
     ViewBag.Title = "Manage Product";
+    int i = 1;
 }
 <div class="box box-primary">
 
@@ -8,20 +9,22 @@
     <!-- form start -->
 
     <div class="box-body">
-        <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="input searh...">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-info btn-flat">
-                    <i class="glyphicon glyphicon-search"></i>
-                </button>
-            </span>
-        </div>
+        <form action="~/catalogproduct" method="get">
+            <div class="input-group input-group-sm">
+                <input type="text" name="searchValue" class="form-control" placeholder="Input search value...">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
     </div>
     <!-- /.box-body -->
 </div>
 <div class="container-fluid row" style="padding-bottom:10px">
     <div class="col-sm-8">
-        there are <b>1,000</b>  Product. Page 1/100
+        there are <b>@Model.RowCount</b>  Product. Page @Model.Page/@Model.PageCount
     </div>
     <div class="col-sm-4 text-right">
         <div class="btn-group">
@@ -69,78 +72,59 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 1; i <= 3; i++)
+                @foreach (var item in Model.Data)
                 {
-                <tr>
-                    <td>
-                        <input type="checkbox" />
-                    </td>
-                    <td>@i</td>
-                    <td>
-                        <span style="width:50px;color:#0094ff; font-weight:bold; display:block">Jack's New England Clam Chowder </span>
-                    </td>
-                    <td>
-                        <span>1</span>
+                    <tr>
+                        <td>
+                            <input type="checkbox" />
+                        </td>
+                        <td>@i</td>
+                        <td>
+                            <span style="width:50px;color:#0094ff; font-weight:bold; display:block">@item.ProductName</span>
+                        </td>
+                        <td>
+                            <span>@item.SupplierID</span>
 
-                    </td>
-                    <td>
-                        <span>1</span>
+                        </td>
+                        <td>
+                            <span>@item.CategoryID</span>
 
-                    </td>
-                    <td>
-                        <span>10 boxes x 20 bags</span>
+                        </td>
+                        <td>
+                            <span>@item.QuantityPerUnit</span>
 
-                    </td>
-                    <td>
-                        <span>18.0000</span>
+                        </td>
+                        <td>
+                            <span>@item.UnitPrice</span>
 
-                    </td>
+                        </td>
 
-                    <td>
-                        <span style="display:block">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
-                    </td>
-                    <td>
-                        <span><img src="~/Themes/AdminLTE/dist/img/avatar5.png"/></span>
+                        <td>
+                            <span style="display:block">@item.Descriptions</span>
+                        </td>
+                        <td>
+                            <span><img src="@item.PhotoPath" /></span>
 
-                    </td>
-                    <td class="text-right">
+                        </td>
+                        <td class="text-right">
 
-                        <a class="btn btn-sm btn-default" href="~/catalogproduct/Input/@i">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                    </td>
-                </tr>}
+                            <a class="btn btn-sm btn-default" href="~/catalogproduct/Input/@i">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>}
 
             </tbody>
         </table>
     </div>
     <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm no-margin  pull-right">
-            <li>
-                <a>
-                    <
-                </a>
-            </li>
-            <li>
-                <a>
-                    1
-                </a>
-            </li>
-            <li>
-                <a>
-                    2
-                </a>
-            </li>
-            <li>
-                <a>
-                    3
-                </a>
-            </li>
-            <li>
-                <a>
-                    >
-                </a>
-            </li>
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="~/catalogproduct?page=1">«</a></li>
+            @for (int page = 1; page <= Model.PageCount; page++)
+            {
+                <li><a href="~/catalogproduct?page=@page">@page</a></li>
+            }
+            <li><a href="~/catalogproduct?page=@Model.PageCount">»</a></li>
         </ul>
     </div>
 </div>

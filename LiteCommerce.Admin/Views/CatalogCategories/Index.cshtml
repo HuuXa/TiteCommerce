@@ -1,6 +1,7 @@
-﻿
+﻿@model LiteCommerce.Admin.Models.CategoriePaginationResult
 @{
     ViewBag.Title = "Manage Categories";
+    int i = 0;
 }
 <div class="box box-primary">
 
@@ -8,20 +9,22 @@
     <!-- form start -->
 
     <div class="box-body">
-        <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Searh...">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-info btn-flat">
-                    <i class="glyphicon glyphicon-search"></i>
-                </button>
-            </span>
-        </div>
+        <form action="~/catalogcategories" method="get">
+            <div class="input-group input-group-sm">
+                <input type="text" name="searchValue" class="form-control" placeholder="Input search value...">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
     </div>
     <!-- /.box-body -->
 </div>
 <div class="container-fluid row" style="padding-bottom:10px">
     <div class="col-sm-8">
-        there are <b>1,000</b>  Categories. Page 1/100
+        there are <b>@Model.RowCount</b>  Categories. Page @Model.Page/@Model.PageCount
     </div>
     <div class="col-sm-4 text-right">
         <div class="btn-group">
@@ -54,22 +57,22 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 1; i <= 3; i++)
+                @foreach (var item in Model.Data)
                 {
                     <tr>
                         <td>
                             <input type="checkbox" />
                         </td>
-                        <td>@i</td>
+                        <td>@(++i)</td>
                         <td>
 
                             <span style="color:#646464; font-weight:bold">
-                                Beverages
+                                @item.CategoryName
                             </span>
                         </td>
 
                         <td>
-                            <span style="display:block">Soft drinks, coffees, teas, beers, and ales</span>
+                            <span style="display:block">@item.Description</span>
 
                         </td>
                         <td class="text-right">
@@ -84,33 +87,7 @@
         </table>
     </div>
     <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm no-margin  pull-right">
-            <li>
-                <a>
-                    <
-                </a>
-            </li>
-            <li>
-                <a>
-                    1
-                </a>
-            </li>
-            <li>
-                <a>
-                    2
-                </a>
-            </li>
-            <li>
-                <a>
-                    3
-                </a>
-            </li>
-            <li>
-                <a>
-                    >
-                </a>
-            </li>
-        </ul>
+        
     </div>
 </div>
 

@@ -41,8 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountBLL.cs" />
     <Compile Include="CatalogBLL.cs" />
+    <Compile Include="DashboarBLL.cs" />
+    <Compile Include="HumanResourceBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportBLL.cs" />
+    <Compile Include="SaleManagementBLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LiteCommerce.DataLayers\LiteCommerce.DataLayers.csproj">
