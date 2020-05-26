@@ -14,7 +14,7 @@ namespace LiteCommerce.DataLayers
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        int Add(Customer data);
+        string Add(Customer data);
         /// <summary>
         /// 
         /// </summary>
@@ -26,13 +26,13 @@ namespace LiteCommerce.DataLayers
         /// </summary>
         /// <param name="customerIDs"></param>
         /// <returns></returns>
-        bool Delete(int[] customerIDs);
+        bool Delete(string[] customerIDs);
         /// <summary>
         /// 
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
-        Customer Get(int customerID);
+        Customer Get(string customerID);
         /// <summary>
         /// 
         /// </summary>

@@ -36,6 +36,11 @@ namespace LiteCommerce.BusinessLayers
             EmployeeDB = new DataLayers.SqlServer.EmployeeDAL(connectionString);
         }
 
+        public static Supplier Suppliers_Get(int supplierID)
+        {
+            return SupplierDB.Get(supplierID);
+        }
+
         //SUPPLIER
 
         /// <summary>

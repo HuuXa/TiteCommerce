@@ -27,25 +27,7 @@ namespace LiteCommerce.DataLayers.SqlServer
 
         public int Count(string searchValue)
         {
-            int count = 0;
-            if (!string.IsNullOrEmpty(searchValue))
-                searchValue = "%" + searchValue + "%";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = @"SELECT COUNT(*) FROM dbo.Products
-                                       WHERE (@searchValue = N'') OR (ProductName LIKE @searchValue)";
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue("@searchValue", searchValue);
-
-                    count = Convert.ToInt32(cmd.ExecuteScalar());
-                }
-                connection.Close();
-            }
-            return count;
+            throw new NotImplementedException();
         }
 
 
@@ -63,50 +45,9 @@ namespace LiteCommerce.DataLayers.SqlServer
 
         public List<Product> List(int page, int pageSize, string searchValue)
         {
-            List<Product> data = new List<Product>();
-            if (!string.IsNullOrEmpty(searchValue))
-                searchValue = "%" + searchValue + "%";
+            throw new NotImplementedException();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = @"SELECT * FROM 
-                                        (
-	                                        SELECT *, ROW_NUMBER() OVER(ORDER BY ProductID) AS RowNumber
-	                                        FROM dbo.Products
-	                                        WHERE (@searchValue = N'') OR (ProductName LIKE @searchValue)
-                                        )AS t  WHERE t.RowNumber BETWEEN (@page - 1) * @pageSize + 1 AND (@page * @pageSize)
-                                        ORDER BY t.RowNumber";
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue("@page", page);
-                    cmd.Parameters.AddWithValue("@pageSize", pageSize);
-                    cmd.Parameters.AddWithValue("@searchValue", searchValue);
 
-                    using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
-                    {
-                        while (dbReader.Read())
-                        {
-                            data.Add(new Product()
-                            {
-                                /*pplierID = Convert.ToInt32(dbReader["SupplierID"]),*/
-                                ProductID = Convert.ToInt32(dbReader["ProductID"]),
-                                ProductName = Convert.ToString(dbReader["ProductName"]),
-                                SupplierID = Convert.ToInt32(dbReader["SupplierID"]),
-                                CategoryID = Convert.ToInt32(dbReader["CategoryID"]),
-                                QuantityPerUnit = Convert.ToString(dbReader["QuantityPerUnit"]),
-                                UnitPrice = Convert.ToInt64(dbReader["UnitPrice"]),
-                                Descriptions = Convert.ToString(dbReader["Descriptions"]),
-                                PhotoPath= Convert.ToString(dbReader["PhotoPath"]),
-                            });
-                        }
-                    }
-                }
-                connection.Close();
-            }
-            return data;
         }
 
         public bool Update(Product data)

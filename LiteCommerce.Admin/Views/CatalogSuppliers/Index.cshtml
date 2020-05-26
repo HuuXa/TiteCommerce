@@ -12,7 +12,7 @@
         <div class="box-body">
             <div class="input-group input-group-sm">
 
-                <input type="text" class="form-control" name="searchValue" placeholder="input searh...">
+                <input type="text" class="form-control" name="searchValue" placeholder="input searh..." value="@Model.SearchValue">
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-info btn-flat">
                         <i class="glyphicon glyphicon-search"></i>
@@ -101,12 +101,12 @@
     </div>
     <div class="box-footer clearfix">
         <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="~/CatalogSuppliers?page=1">«</a></li>
+            <li><a href="~/CatalogSuppliers?page=1&searchValue=@Model.SearchValue">«</a></li>
             @for (int page = 1; page <= Model.PageCount; page++)
             {
-                <li><a href="~/CatalogSuppliers?page=@page">@page</a></li>
+                <li><a href="~/CatalogSuppliers?page=@page&searchValue=@Model.SearchValue">@page</a></li>
             }
-            <li><a href="~/CatalogSuppliers?page=@Model.PageCount">»</a></li>
+            <li><a href="~/CatalogSuppliers?page=@Model.PageCount&searchValue=@Model.SearchValue">»</a></li>
         </ul>
     </div>
 </div>

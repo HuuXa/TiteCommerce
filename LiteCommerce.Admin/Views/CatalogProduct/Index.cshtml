@@ -1,7 +1,7 @@
-﻿@model LiteCommerce.Admin.Models.ProductPaginationResult    
+﻿
 @{
     ViewBag.Title = "Manage Product";
-    int i = 1;
+    //int i = 1;
 }
 <div class="box box-primary">
 
@@ -24,7 +24,7 @@
 </div>
 <div class="container-fluid row" style="padding-bottom:10px">
     <div class="col-sm-8">
-        there are <b>@Model.RowCount</b>  Product. Page @Model.Page/@Model.PageCount
+        there are <b>1000</b>  Product. Page 1/12
     </div>
     <div class="col-sm-4 text-right">
         <div class="btn-group">
@@ -72,7 +72,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.Data)
+                @for(int i =1; i <0; i++)
                 {
                     <tr>
                         <td>
@@ -80,30 +80,30 @@
                         </td>
                         <td>@i</td>
                         <td>
-                            <span style="width:50px;color:#0094ff; font-weight:bold; display:block">@item.ProductName</span>
+                            <span style="width:50px;color:#0094ff; font-weight:bold; display:block">huuxa</span>
                         </td>
                         <td>
-                            <span>@item.SupplierID</span>
+                            <span>1lierID</span>
 
                         </td>
                         <td>
-                            <span>@item.CategoryID</span>
+                            <span>1</span>
 
                         </td>
                         <td>
-                            <span>@item.QuantityPerUnit</span>
+                            <span>2</span>
 
                         </td>
                         <td>
-                            <span>@item.UnitPrice</span>
+                            <span>1000</span>
 
                         </td>
 
                         <td>
-                            <span style="display:block">@item.Descriptions</span>
+                            <span style="display:block">các kiểu các kiểu</span>
                         </td>
                         <td>
-                            <span><img src="@item.PhotoPath" /></span>
+                            <span><img src="fb.com/xatranhuu98" /></span>
 
                         </td>
                         <td class="text-right">
@@ -120,11 +120,13 @@
     <div class="box-footer clearfix">
         <ul class="pagination pagination-sm no-margin pull-right">
             <li><a href="~/catalogproduct?page=1">«</a></li>
-            @for (int page = 1; page <= Model.PageCount; page++)
-            {
-                <li><a href="~/catalogproduct?page=@page">@page</a></li>
-            }
-            <li><a href="~/catalogproduct?page=@Model.PageCount">»</a></li>
+            <li><a href="~/catalogproduct">1</a></li>
+            <li><a href="~/catalogproduct">1</a></li>
+            <li><a href="~/catalogproduct">1</a></li>
+            <li><a href="~/catalogproduct">1</a></li>
+
+
+            <li><a href="~/catalogproduc">»</a></li>
         </ul>
     </div>
 </div>

@@ -1,4 +1,5 @@
 ﻿using LiteCommerce.BusinessLayers;
+using LiteCommerce.DomainModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace LiteCommerce.Admin.Controllers
                 PageSize = AppSettings.DefaultPageSize,
                 RowCount = CatalogBLL.Suppliers_Count(searchValue),
                 Data = CatalogBLL.Suppliers_List(page, AppSettings.DefaultPageSize, searchValue),
+                SearchValue = searchValue,
             };
 
             //var listOfSuppliers = CatalogBLL.Suppliers_List(page, 10, searchValue);
@@ -38,13 +40,22 @@ namespace LiteCommerce.Admin.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                ViewBag.Title = "add new suppliers";
+                ViewBag.Title = "add suppliers";
+                Supplier newSupplier = new Supplier();
+                newSupplier.SupplierID = 0;
+                return View(newSupplier);
             }
             else
             {
                 ViewBag.Title = "edit suppliers";
+                Supplier editSupplier = CatalogBLL.Suppliers_Get(Convert.ToInt32(id));
+                if(editSupplier == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                return View(editSupplier);
             }
-            return View();
+
         }
     }
 }

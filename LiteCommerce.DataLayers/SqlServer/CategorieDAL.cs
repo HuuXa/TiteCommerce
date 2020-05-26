@@ -30,7 +30,32 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <returns></returns>
         public int Add(Categorie data)
         {
-            throw new NotImplementedException();
+            int categoryID = 0;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"INSERT INTO Categories
+                                          (
+	                                          CategoryName,
+	                                          Description,
+                                          )
+                                          VALUES
+                                          (
+	                                          @CategoryName,
+	                                          @Description
+                                          );
+                                          SELECT @@IDENTITY;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@CompanyName", data.CategoryName);
+                cmd.Parameters.AddWithValue("@ContactName", data.Description);
+                categoryID = Convert.ToInt32(cmd.ExecuteScalar());
+
+                connection.Close();
+            }
+            return categoryID;
         }
 
         public int Count(string searchValue)
@@ -63,12 +88,59 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <returns></returns>
         public bool Delete(int[] categorieIDs)
         {
-            throw new NotImplementedException();
+            bool result = true;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"DELETE FROM Categories
+                                            WHERE(CategoryID = @categoryID)
+                                              AND(CategoryID NOT IN(SELECT CategoryID FROM Products))";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.Add("@categorieId", SqlDbType.Int);
+                foreach (int categorieId in categorieIDs)
+                {
+                    cmd.Parameters["@supplierId"].Value = categorieId;
+                    cmd.ExecuteNonQuery();
+                }
+
+                connection.Close();
+            }
+            return result;
         }
 
         public Categorie Get(int categorieID)
         {
-            throw new NotImplementedException();
+            Categorie data = null;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"SELECT * FROM Categories WHERE CategoryID = @categorieID";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@categorieID", categorieID);
+
+                using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    if (dbReader.Read())
+                    {
+                        data = new Categorie()
+                        {
+                            CategoryID = Convert.ToInt32(dbReader["CategoryID"]),
+                            CategoryName = Convert.ToString(dbReader["CategoryName"]),
+                            Description = Convert.ToString(dbReader["Description"])
+                            //TODO: Làm nốt các trường còn lại...
+                        };
+                    }
+                }
+
+                connection.Close();
+            }
+            return data;
         }
 
         /// <summary>
@@ -127,7 +199,31 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <returns></returns>
         public bool Update(Categorie data)
         {
-            throw new NotImplementedException();
+            int rowsAffected = 0;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"UPDATE Categories 
+	                                    SET 
+		                                    CategoryName = @CategoryName, 
+		                                    Description = @Description,
+	                                    WHERE CategoryID = @CategoryID";
+                //UPDATE NHANVIEN SET DIACHI = 'Hanoi' WHERE ID = 3;
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                //TODO: Bổ sung tham số cho lệnh cập nhật
+                cmd.Parameters.AddWithValue("@SupplierID", data.CategoryID);
+                cmd.Parameters.AddWithValue("@CategoryName", data.CategoryName);
+                cmd.Parameters.AddWithValue("@Description", data.Description);
+
+                rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
+
+                connection.Close();
+            }
+
+            return rowsAffected > 0;
         }
     }
 }

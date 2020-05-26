@@ -11,16 +11,10 @@ namespace LiteCommerce.Admin.Controllers
     public class CatalogProductController : Controller
     {
         // GET: CatalogProduct
-        public ActionResult Index(int page = 1, string searchValue= "")
+        public ActionResult Index()
         {
-            var model = new Models.ProductPaginationResult()
-            {
-                Page = page,
-                PageSize = AppSettings.DefaultPageSize,
-                RowCount = CatalogBLL.Product_Count(searchValue),
-                Data = CatalogBLL.Product_List(page, AppSettings.DefaultPageSize, searchValue)
-            };
-            return View(model);
+
+            return View();
         }
         public ActionResult Input(string id = "")
         {
