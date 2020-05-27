@@ -138,7 +138,7 @@
     <Compile Include="Controllers\CatalogShippersController.cs" />
     <Compile Include="Controllers\CatalogSuppliersController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
-    <Compile Include="Controllers\EmplogesController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\ForgetPasswordController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrderListController.cs" />
@@ -198,7 +198,7 @@
     <Content Include="Views\Shared\_CatalogShippers.cshtml" />
     <Content Include="Views\Shared\_OralersList.cshtml" />
     <Content Include="Views\Shared\_OralersCreatr.cshtml" />
-    <Content Include="Views\Shared\_Emploges.cshtml" />
+    <Content Include="Views\Shared\_Employees.cshtml" />
     <Content Include="Views\Shared\_Product.cshtml" />
     <Content Include="Views\Shared\_Report.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />

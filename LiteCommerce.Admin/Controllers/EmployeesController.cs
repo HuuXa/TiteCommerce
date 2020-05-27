@@ -9,9 +9,9 @@ using System.Web.Mvc;
 namespace LiteCommerce.Admin.Controllers
 {
      [Authorize]
-    public class EmplogesController : Controller
+    public class EmployeesController : Controller
     {
-        // GET: Emploges
+        // GET: Employee
         public ActionResult Index(int page = 1,string searchValue = "")
         {
             var model = new Models.EmployeePaginationResult()
@@ -19,7 +19,7 @@ namespace LiteCommerce.Admin.Controllers
                 Page = page,
                 PageSize = AppSettings.DefaultPageSize,
                 RowCount = CatalogBLL.Employee_Count(searchValue),
-                Data = CatalogBLL.Emplogese_List(page, AppSettings.DefaultPageSize, searchValue),
+                Data = CatalogBLL.Employee_List(page, AppSettings.DefaultPageSize, searchValue),
                 SearchValue = searchValue,
             };
             return View(model);
@@ -28,7 +28,7 @@ namespace LiteCommerce.Admin.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                ViewBag.Title = "add Emploges";
+                ViewBag.Title = "add Employee";
                 Employee newEmployee = new Employee();
                 newEmployee.EmployeeID = 0;
                 return View(newEmployee);

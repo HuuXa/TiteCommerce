@@ -5,7 +5,7 @@
 <div class="box box-success">
     <div class="box-header with-border">
         <h5 class="box-title pull-right">
-            <a href="~/Emploges">
+            <a href="~/Employees">
                 back
             </a>
         </h5>
@@ -17,12 +17,20 @@
             <!-- textarea -->
             <!-- input states -->
             <div style="display:flex">
-                <div class="form-group" style="margin-right:10px; width:540px">
-                    <label class="control-label" for="inputWarning">
-                        <i class="fa fa-address-card-o"></i>First Name
-                    </label>
-                    <input type="text" class="form-control" id="inputWarning" placeholder="EmployeeID ..." value="@Model.EmployeeID">
-                </div>
+                @if (Model.EmployeeID == 0)
+                {
+
+                }
+                else
+                {
+                    <div class="form-group" style="margin-right:10px; width:540px">
+                        <label class="control-label" for="inputWarning">
+                            <i class="fa fa-address-card-o"></i>EmployeeID
+                        </label>
+                        <input type="text" class="form-control" id="inputWarning" placeholder="EmployeeID ..." value="@Model.EmployeeID">
+                    </div>
+                }
+
                 <div class="form-group" style="margin-right:10px; width:540px">
                     <label class="control-label" for="inputWarning">
                         <i class="fa fa-address-card-o"></i>First Name
@@ -33,7 +41,7 @@
                     <label class="control-label" for="inputError">
                         <i class="fa fa-times-circle-o"></i>Last title
                     </label>
-                    <input type="text" class="form-control" id="inputError" placeholder="Last title ..." value="@Model.LastName">
+                    <input type="text" class="form-control" id="inputError" placeholder="Last name ..." value="@Model.LastName">
 
                 </div>
             </div>

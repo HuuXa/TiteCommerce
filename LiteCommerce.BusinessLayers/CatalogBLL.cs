@@ -186,7 +186,7 @@ namespace LiteCommerce.BusinessLayers
             return CategorieDB.Count(searchValue);
         }
 
-        ///EMPLOGES
+        ///EMPLOYEES
         public static Employee Employee_Get(int employeeID)
         {
             return EmployeeDB.Get(employeeID);
@@ -198,7 +198,7 @@ namespace LiteCommerce.BusinessLayers
         /// <param name="pageSize"> số dòng mỗi trang </param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public static List<Employee> Emplogese_List(int page, int pageSize, string searchValue)
+        public static List<Employee> Employee_List(int page, int pageSize, string searchValue)
         {
             if (page < 1)
                 page = 1;

@@ -1,6 +1,6 @@
 ﻿@model LiteCommerce.Admin.Models.EmployeePaginationResult
 @{
-    ViewBag.Title = "Manage c";
+    ViewBag.Title = "Manage Employee";
     int i = 0;
 }
 
@@ -11,7 +11,7 @@
     <!-- form start -->
 
     <div class="box-body">
-        <form action="~/Emplogesx method="get">
+        <form action="~/Employees" method="get">
             <div class="input-group input-group-sm">
                 <input type="text" name="searchValue" class="form-control" placeholder="Input search value..." >
                 <span class="input-group-btn">
@@ -30,7 +30,7 @@
     </div>
     <div class="col-sm-4 text-right">
         <div class="btn-group">
-            <a href="~/Emploges/Input" class="btn btn-sm btn-primary">Add Emploges</a>
+            <a href="~/Employees/Input" class="btn btn-sm btn-primary">Add Emploges</a>
             <button type="button" class="btn btn-sm btn-danger">Delete Emploges</button>
 
         </div>
@@ -97,7 +97,7 @@
                         <td>@item.Password</td>
                         <td class="text-right">
 
-                            <a class="btn btn-sm btn-default" href="~/Emploges/Input/@i">
+                            <a class="btn btn-sm btn-default" href="~/Employees/Input/@i">
                                 <i class="fa fa-edit"></i>
                             </a>
                         </td>
@@ -108,12 +108,12 @@
     </div>
     <div class="box-footer clearfix">
         <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="~/Emploges?page=1&searchValue=@Model.SearchValue">«</a></li>
+            <li><a href="~/Employees?page=1&searchValue=@Model.SearchValue">«</a></li>
             @for (int page = 1; page <= Model.PageCount; page++)
             {
-                <li><a href="~/Emploges?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                <li><a href="~/Employees?page=@page&searchValue=@Model.SearchValue">@page</a></li>
             }
-            <li><a href="~/Emploges?page=@Model.PageCount&searchValue=@Model.SearchValue">»</a></li>
+            <li><a href="~/Employees?page=@Model.PageCount&searchValue=@Model.SearchValue">»</a></li>
         </ul>
     </div>
 </div>
