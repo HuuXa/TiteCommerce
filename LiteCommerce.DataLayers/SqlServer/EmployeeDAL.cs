@@ -163,7 +163,7 @@ namespace LiteCommerce.DataLayers.SqlServer
                     {
                         data = new Employee()
                         {
-                            EmployeeID = Convert.ToInt32(dbReader["SupplierID"]),
+                            EmployeeID = Convert.ToInt32(dbReader["EmployeeID"]),
                             LastName = Convert.ToString(dbReader["LastName"]),
                             FirstName = Convert.ToString(dbReader["FirstName"]),
                             Title = Convert.ToString(dbReader["Title"]),

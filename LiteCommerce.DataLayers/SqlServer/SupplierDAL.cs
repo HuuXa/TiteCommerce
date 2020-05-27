@@ -137,41 +137,41 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <returns></returns>
         public Supplier Get(int supplierID)
         {
-            Supplier data = null;
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"SELECT * FROM Suppliers WHERE SupplierID = @supplierID";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = connection;
-                cmd.Parameters.AddWithValue("@supplierID", supplierID);
-
-                using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                Supplier data = null;
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    if (dbReader.Read())
-                    {
-                        data = new Supplier()
-                        {
-                            SupplierID = Convert.ToInt32(dbReader["SupplierID"]),
-                            CompanyName = Convert.ToString(dbReader["CompanyName"]),
-                            ContactName = Convert.ToString(dbReader["ContactName"]),
-                            ContactTitle = Convert.ToString(dbReader["ContactTitle"]),
-                            Address = Convert.ToString(dbReader["Address"]),
-                            City = Convert.ToString(dbReader["City"]),
-                            Country = Convert.ToString(dbReader["Country"]),
-                            Phone = Convert.ToString(dbReader["Phone"]),
-                            Fax = Convert.ToString(dbReader["Fax"]),
-                            HomePage = Convert.ToString(dbReader["Homepage"])
-                            //TODO: Làm nốt các trường còn lại...
-                        };
-                    }
-                }
+                    connection.Open();
 
-                connection.Close();
-            }
-            return data;
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandText = @"SELECT * FROM Suppliers WHERE SupplierID = @supplierID";
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = connection;
+                    cmd.Parameters.AddWithValue("@supplierID", supplierID);
+
+                    using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        if (dbReader.Read())
+                        {
+                            data = new Supplier()
+                            {
+                                SupplierID = Convert.ToInt32(dbReader["SupplierID"]),
+                                CompanyName = Convert.ToString(dbReader["CompanyName"]),
+                                ContactName = Convert.ToString(dbReader["ContactName"]),
+                                ContactTitle = Convert.ToString(dbReader["ContactTitle"]),
+                                Address = Convert.ToString(dbReader["Address"]),
+                                City = Convert.ToString(dbReader["City"]),
+                                Country = Convert.ToString(dbReader["Country"]),
+                                Phone = Convert.ToString(dbReader["Phone"]),
+                                Fax = Convert.ToString(dbReader["Fax"]),
+                                HomePage = Convert.ToString(dbReader["Homepage"])
+                                //TODO: Làm nốt các trường còn lại...
+                            };
+                        }
+                    }
+
+                    connection.Close();
+                }
+                return data;
         }
         /// <summary>
         /// 

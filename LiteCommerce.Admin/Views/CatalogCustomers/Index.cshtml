@@ -87,7 +87,7 @@
                         </td>
                         <td class="text-right">
 
-                            <a class="btn btn-sm btn-default" href="~/catalogcustomers/Input/@i">
+                            <a class="btn btn-sm btn-default" href="~/catalogcustomers/Input/@item.CustomerID">
                                 <i class="fa fa-edit"></i>
                             </a>
                         </td>
@@ -98,12 +98,12 @@
     </div>
     <div class="box-footer clearfix">
         <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="~/CatalogCustomers?page=1">«</a></li>
+            <li><a href="~/CatalogCustomers?page=1&searchValue=@Model.SearchValue">«</a></li>
             @for (int page = 1; page < Model.PageCount; page++)
             {
-                <li><a href="~/CatalogCustomers?page=@page">@page</a></li>
+                <li><a href="~/CatalogCustomers?page=@page&searchValue=@Model.SearchValue">@page</a></li>
             }
-            <li><a href="~/CatalogCustomers?page=@Model.PageCount">»</a></li>
+            <li><a href="~/CatalogCustomers?page=@Model.PageCount&searchValue=@Model.SearchValue">»</a></li>
         </ul>
     </div>
 </div>

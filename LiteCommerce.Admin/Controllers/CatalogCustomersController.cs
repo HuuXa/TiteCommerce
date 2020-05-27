@@ -1,4 +1,5 @@
 ﻿using LiteCommerce.BusinessLayers;
+using LiteCommerce.DomainModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,8 @@ namespace LiteCommerce.Admin.Controllers
                 Page = page,
                 PageSize = AppSettings.DefaultPageSize,
                 RowCount = CatalogBLL.Customer_Count(searchValue),
-                Data = CatalogBLL.Customer_List(page, AppSettings.DefaultPageSize, searchValue)
+                Data = CatalogBLL.Customer_List(page, AppSettings.DefaultPageSize, searchValue),
+                SearchValue = searchValue,
             };
             return View(model);
         }
@@ -33,13 +35,19 @@ namespace LiteCommerce.Admin.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                ViewBag.Title = "add new Customers";
+                ViewBag.Title = "Add new CusTomer";
+                Customer newCustomer = new Customer();
+                newCustomer.CustomerID = "";
+                return View(newCustomer);
             }
             else
             {
-                ViewBag.Title = "Edit Customers";
+                ViewBag.Title = "Edit CusTomer";
+                Customer editCustomer = CatalogBLL.Customer_Get(Convert.ToString(id));
+                if (editCustomer == null)
+                    return RedirectToAction("Index");
+                return View(editCustomer);
             }
-            return View();
         }
     }
 }

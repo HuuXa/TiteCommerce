@@ -41,51 +41,39 @@
         <table class="table table-bordered table-hover dataTable">
             <thead>
                 <tr>
-                    <th style="width:30px">
+                    <th >
                         <input type="checkbox" />
                     </th>
-                    <th style="width:50px">
+                    <th>
                         #
                     </th>
-                    <th style="width:100px">
-                        Last Name
+                    <th >
+                       Full Name
                     </th>
-                    <th style="width:100px">
-                        Firts Name
-                    </th>
-                    <th style="width:auto">
+                    <th>
                         Title
                     </th>
-                    <th style="width:80px">
-                        Birth Date
+                    <th>
+                        Birth Date - Hire Date
                     </th>
-                    <th style="width:80px">
-                        Hire Date
-                    </th>
-                    <th style="width:80px">
+                    <th style="width: 30px">
                         Email
-                    <th style="width:80px">
+                    <th>
                         Address
                     </th>
-                    <th style="width:80px">
-                        City
+                    <th>
+                        Country - City - Home Phone
                     </th>
-                    <th style="width:80px">
-                        Country
-                    </th>
-                    <th style="width:80px">
-                        Home Phone
-                    </th>
-                    <th style="width:80px">
+                    <th>
                         Notes
                     </th>
-                    <th style="width:80px">
+                    <th>
                         Photo Path
                     </th>
-                    <th style="width:80px">
+                    <th>
                         Pass Word
                     </th>
-                    <th style="width:80px">
+                    <th>
 
                     </th>
                 </tr>
@@ -98,16 +86,12 @@
                             <input type="checkbox" />
                         </td>
                         <td>@(++i)</td>
-                        <td>@item.FirstName</td>
-                        <td>@item.LastName</td>
+                        <td>@item.FirstName @item.LastName</td>
                         <td>@item.Title</td>
-                        <td>@item.BirthDate</td>
-                        <td>@item.HireDate</td>
+                        <td>@item.BirthDate - @item.HireDate</td>
                         <td>@item.Email</td>
-                        <td>@item.Address</td>
-                        <td>@item.City</td>
-                        <td>@item.Country</td>
-                        <td>@item.HomePhone</td>
+                        <td>@item.Address <span>@item.HomePhone</span></td>
+                        <td>@item.Country-@item.City</td>
                         <td>@item.Notes</td>
                         <td>@item.PhotoPath</td>
                         <td>@item.Password</td>
@@ -124,12 +108,12 @@
     </div>
     <div class="box-footer clearfix">
         <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="~/Supplier?page=1">«</a></li>
+            <li><a href="~/Emploges?page=1&searchValue=@Model.SearchValue">«</a></li>
             @for (int page = 1; page <= Model.PageCount; page++)
             {
-                <li><a href="~/Supplier?page=@page">@page</a></li>
+                <li><a href="~/Emploges?page=@page&searchValue=@Model.SearchValue">@page</a></li>
             }
-            <li><a href="~/Supplier?page=@Model.PageCount">»</a></li>
+            <li><a href="~/Emploges?page=@Model.PageCount&searchValue=@Model.SearchValue">»</a></li>
         </ul>
     </div>
 </div>

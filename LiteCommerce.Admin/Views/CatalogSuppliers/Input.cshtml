@@ -59,13 +59,20 @@
                 <div class="form-group" style="margin-right:10px; width:540px">
                     <i class="fa fa-globe"></i>
                     <label>Country</label>
-                    <input type="text" class="form-control" id="inputError" placeholder="address ..." value="@Model.Country">
+                 
                     <select class="form-control" name="Country">
-                            <option value="">--chon. nuoc di--</option>
-                        @*@foreach(var item in code.)
+                     
+                        @foreach (var item in SelectListHelper.ListOfCountries())
                         {
-                           // if (item.Value == Model.Country) ;
-                        }*@
+                            if (item.Value == Model.Country)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                            if (item.Value != Model.Country)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        }
                     </select>
                 </div>
                 <div class="form-group " style="width:550px">

@@ -2,6 +2,7 @@
 using LiteCommerce.BusinessLayers;
 using LiteCommerce.DataLayers;
 using LiteCommerce.DataLayers.SqlServer;
+using LiteCommerce.DomainModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,8 @@ namespace LiteCommerce.Admin.Controllers
                 Page = page,
                 PageSize = 30,
                 RowCount = CatalogBLL.Categorie_Count(searchValue),
-                Data = CatalogBLL.Categorie_List(page, 30, searchValue)
+                Data = CatalogBLL.Categorie_List(page, 30, searchValue),
+                SearchValue = searchValue,
             };
             return View(model);
         }
@@ -34,13 +36,19 @@ namespace LiteCommerce.Admin.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                ViewBag.Title = "Add New Categories";
+                ViewBag.Title = "Add new Categorie";
+                Categorie newCategorie = new Categorie();
+                newCategorie.CategoryID = 0;
+                return View(newCategorie);
             }
             else
             {
-                ViewBag.Title = "Edit Categories";
+                ViewBag.Title = "Edit Categorie";
+                Categorie editCategorie = CatalogBLL.Categorie_Get(Convert.ToInt32(id));
+                if (editCategorie == null)
+                    return RedirectToAction("Index");
+                return View(editCategorie);
             }
-            return View();
         }
     }
 }

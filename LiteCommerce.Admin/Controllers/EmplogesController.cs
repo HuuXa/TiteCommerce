@@ -1,4 +1,5 @@
 ﻿using LiteCommerce.BusinessLayers;
+using LiteCommerce.DomainModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,8 @@ namespace LiteCommerce.Admin.Controllers
                 Page = page,
                 PageSize = AppSettings.DefaultPageSize,
                 RowCount = CatalogBLL.Employee_Count(searchValue),
-                Data = CatalogBLL.Emplogese_List(page, AppSettings.DefaultPageSize, searchValue)
+                Data = CatalogBLL.Emplogese_List(page, AppSettings.DefaultPageSize, searchValue),
+                SearchValue = searchValue,
             };
             return View(model);
         }
@@ -26,13 +28,21 @@ namespace LiteCommerce.Admin.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                ViewBag.Title = "add new Emploges";
+                ViewBag.Title = "add Emploges";
+                Employee newEmployee = new Employee();
+                newEmployee.EmployeeID = 0;
+                return View(newEmployee);
             }
             else
             {
-                ViewBag.Title = "Edit Emploges";
+                ViewBag.Title = "edit Employee";
+                Employee editEmployee =  CatalogBLL.Employee_Get(Convert.ToInt32(id));
+                if (editEmployee == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                return View(editEmployee);
             }
-            return View();
         }
     }
 }

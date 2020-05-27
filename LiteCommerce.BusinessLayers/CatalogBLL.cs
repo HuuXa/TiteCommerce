@@ -18,7 +18,7 @@ namespace LiteCommerce.BusinessLayers
         private static ISupplierDAL SupplierDB { get; set; }
         private static ICustomerDAL CustomerDB  { get; set; }
         private static IShipperDAL ShipperDB { get; set; }
-        private static IProductDAL ProductDB { get; set; }
+        //private static IProductDAL ProductDB { get; set; }
         private static ICategorieDAL CategorieDB { get; set; }
         private static IEmployeeDAL EmployeeDB { get; set; }
 
@@ -31,18 +31,18 @@ namespace LiteCommerce.BusinessLayers
             SupplierDB = new DataLayers.SqlServer.SupplierDAL(connectionString);
             CustomerDB = new DataLayers.SqlServer.CustomerDAL(connectionString);
             ShipperDB = new DataLayers.SqlServer.ShipperDAL(connectionString);
-            ProductDB = new DataLayers.SqlServer.ProductDAL(connectionString);
+            //ProductDB = new DataLayers.SqlServer.ProductDAL(connectionString);
             CategorieDB = new DataLayers.SqlServer.CategorieDAL(connectionString);
             EmployeeDB = new DataLayers.SqlServer.EmployeeDAL(connectionString);
         }
 
+
+
+        //SUPPLIER
         public static Supplier Suppliers_Get(int supplierID)
         {
             return SupplierDB.Get(supplierID);
         }
-
-        //SUPPLIER
-
         /// <summary>
         /// hiển thị ds các nhà cung cấp theo dạng phân trang
         /// </summary>
@@ -70,6 +70,10 @@ namespace LiteCommerce.BusinessLayers
 
         // CUSTOMER
 
+        public static Customer Customer_Get(String customerID)
+        {
+            return CustomerDB.Get(customerID);
+        }
         /// <summary>
         /// hiển thị ds các nhà cung cấp theo dạng phân trang
         /// </summary>
@@ -96,7 +100,10 @@ namespace LiteCommerce.BusinessLayers
         }
 
         //SHIPPER
-
+        public static Shipper Shipper_Get(int shipperID)
+        {
+            return ShipperDB.Get(shipperID);
+        }
         /// <summary>
         /// hiển thị ds các nhà cung cấp theo dạng phân trang
         /// </summary>
@@ -131,26 +138,29 @@ namespace LiteCommerce.BusinessLayers
         /// <param name="pageSize"> số dòng mỗi trang </param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public static List<Product> Product_List(int page, int pageSize, string searchValue)
-        {
-            if (page < 1)
-                page = 1;
-            if (pageSize < 1)
-                pageSize = 30;
-            return ProductDB.List(page, pageSize, searchValue);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="searchValue"></param>
-        /// <returns></returns>
-        public static int Product_Count(string searchValue)
-        {
-            return ProductDB.Count(searchValue);
-        }
+        //public static List<Product> Product_List(int page, int pageSize, string searchValue)
+        //{
+        //    if (page < 1)
+        //        page = 1;
+        //    if (pageSize < 1)
+        //        pageSize = 30;
+        //    return ProductDB.List(page, pageSize, searchValue);
+        //}
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="searchValue"></param>
+        ///// <returns></returns>
+        //public static int Product_Count(string searchValue)
+        //{
+        //    return ProductDB.Count(searchValue);
+        //}
 
         ///CATEGORIE
-
+        public static Categorie Categorie_Get(int categoryID)
+        {
+            return CategorieDB.Get(categoryID);
+        }
         /// <summary>
         /// hiển thị ds các nhà cung cấp theo dạng phân trang
         /// </summary>
@@ -177,7 +187,10 @@ namespace LiteCommerce.BusinessLayers
         }
 
         ///EMPLOGES
-
+        public static Employee Employee_Get(int employeeID)
+        {
+            return EmployeeDB.Get(employeeID);
+        }
         /// <summary>
         /// hiển thị ds các nhà cung cấp theo dạng phân trang
         /// </summary>
