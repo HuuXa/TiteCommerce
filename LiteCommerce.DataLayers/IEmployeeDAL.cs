@@ -12,27 +12,31 @@ namespace LiteCommerce.DataLayers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="employee"></param>
         /// <returns></returns>
-        int Add(Employee data);
+        int Add(Employee employee);
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="employee"></param>
         /// <returns></returns>
-        bool Update(Employee data);
+        bool Update(Employee employee);
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="employeeIDs"></param>
         /// <returns></returns>
         bool Delete(int[] employeeIDs);
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="employeeID"></param>
         /// <returns></returns>
         Employee Get(int employeeID);
+
         /// <summary>
         /// 
         /// </summary>
@@ -40,12 +44,27 @@ namespace LiteCommerce.DataLayers
         /// <param name="pageSize"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        List<Employee> List(int page, int pageSize, string searchValue);
+        List<Employee> List(string searchValue);
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
         int Count(string searchValue);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="pass"></param>
+        /// <returns></returns>
+        bool CheckLogin(string email, string pass);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        bool CheckEmail(string email, bool isUpdate);
     }
 }

@@ -7,32 +7,39 @@ using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface ICustomerDAL
     {
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        string Add(Customer data);
+        string Add(Customer customer);
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        bool Update(Customer data);
+        bool Update(Customer customer);
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="customerIDs"></param>
         /// <returns></returns>
         bool Delete(string[] customerIDs);
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
         Customer Get(string customerID);
+
         /// <summary>
         /// 
         /// </summary>
@@ -41,6 +48,7 @@ namespace LiteCommerce.DataLayers
         /// <param name="searchValue"></param>
         /// <returns></returns>
         List<Customer> List(int page, int pageSize, string searchValue);
+
         /// <summary>
         /// 
         /// </summary>

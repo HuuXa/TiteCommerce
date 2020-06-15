@@ -9,39 +9,44 @@ using LiteCommerce.DomainModels;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class CustomerDAL : ICustomerDAL
     {
-        public string connectionString;
+        private string connectionString;
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="connectióntring"></param>
-        public CustomerDAL(string connectionString)
+        /// <param name="connection"></param>
+        public CustomerDAL(string connection)
         {
-            this.connectionString = connectionString;
+            this.connectionString = connection;
         }
 
-        public string Add(Customer data)
+        public string Add(Customer customer)
         {
-            string customerId = "";
-            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            string customerID = null;
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"INSERT INTO Customers
                                           (
-	                                          CompanyName,
-	                                          ContactName,
-	                                          ContactTitle,
-	                                          Address,
-	                                          City,
-	                                          Country,
-	                                          Phone,
-	                                          Fax
+	                                            CustomerID,
+                                                CompanyName,
+                                                ContactName,
+                                                ContactTitle,
+                                                Address,
+                                                City,
+                                                Country,
+                                                Phone,
+                                                Fax
                                           )
                                           VALUES
                                           (
+	                                          @CustomerID,
 	                                          @CompanyName,
 	                                          @ContactName,
 	                                          @ContactTitle,
@@ -49,26 +54,25 @@ namespace LiteCommerce.DataLayers.SqlServer
 	                                          @City,
 	                                          @Country,
 	                                          @Phone,
-	                                          @Fax
+                                              @Fax
                                           );
-                                          SELECT @@IDENTITY;";
-                cmd.CommandType = CommandType.Text;
+                                           SELECT @@IDENTITY;";
+                cmd.CommandType = System.Data.CommandType.Text;
                 cmd.Connection = connection;
-                cmd.Parameters.AddWithValue("@CompanyName", data.CompanyName);
-                cmd.Parameters.AddWithValue("@ContactName", data.ContactName);
-                cmd.Parameters.AddWithValue("@ContactTitle", data.ContactTitle);
-                cmd.Parameters.AddWithValue("@Address", data.Address);
-                cmd.Parameters.AddWithValue("@City", data.City);
-                cmd.Parameters.AddWithValue("@Country", data.Country);
-                cmd.Parameters.AddWithValue("@Phone", data.Phone);
-                cmd.Parameters.AddWithValue("@Fax", data.Fax);
+                cmd.Parameters.AddWithValue("CustomerID", customer.CustomerID);
+                cmd.Parameters.AddWithValue("CompanyName", customer.CompanyName);
+                cmd.Parameters.AddWithValue("ContactName", customer.ContactName);
+                cmd.Parameters.AddWithValue("ContactTitle", customer.ContactTitle);
+                cmd.Parameters.AddWithValue("Address", customer.Address);
+                cmd.Parameters.AddWithValue("City", customer.City);
+                cmd.Parameters.AddWithValue("Country", customer.Country);
+                cmd.Parameters.AddWithValue("Phone", customer.Phone);
+                cmd.Parameters.AddWithValue("Fax", customer.Fax);
 
-
-                customerId = Convert.ToString(cmd.ExecuteScalar());
-
+                customerID = Convert.ToString(cmd.ExecuteNonQuery());
                 connection.Close();
             }
-            return customerId;
+            return customerID;
         }
 
         public int Count(string searchValue)
@@ -82,7 +86,7 @@ namespace LiteCommerce.DataLayers.SqlServer
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.CommandText = @"SELECT COUNT(*) FROM dbo.Customers
-                                       WHERE (@searchValue = N'') OR (CompanyName LIKE @searchValue)";
+                                        WHERE (@searchValue = N'') OR (CompanyName LIKE @searchValue)";
                     cmd.CommandType = System.Data.CommandType.Text;
                     cmd.Connection = connection;
                     cmd.Parameters.AddWithValue("@searchValue", searchValue);
@@ -107,7 +111,7 @@ namespace LiteCommerce.DataLayers.SqlServer
                                               AND(CustomerID NOT IN(SELECT CustomerID FROM Orders))";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
-                cmd.Parameters.Add("@customerID", SqlDbType.Int);
+                cmd.Parameters.Add("@customerID", SqlDbType.Char);
                 foreach (string customerID in customerIDs)
                 {
                     cmd.Parameters["@customerID"].Value = customerID;
@@ -118,7 +122,6 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return result;
         }
-
 
         public Customer Get(string customerID)
         {
@@ -147,13 +150,10 @@ namespace LiteCommerce.DataLayers.SqlServer
                             City = Convert.ToString(dbReader["City"]),
                             Country = Convert.ToString(dbReader["Country"]),
                             Phone = Convert.ToString(dbReader["Phone"]),
-                            Fax = Convert.ToString(dbReader["Fax"]),
-                          
-                            //TODO: Làm nốt các trường còn lại...
+                            Fax = Convert.ToString(dbReader["Fax"])
                         };
                     }
                 }
-
                 connection.Close();
             }
             return data;
@@ -162,6 +162,7 @@ namespace LiteCommerce.DataLayers.SqlServer
         public List<Customer> List(int page, int pageSize, string searchValue)
         {
             List<Customer> data = new List<Customer>();
+
             if (!string.IsNullOrEmpty(searchValue))
                 searchValue = "%" + searchValue + "%";
 
@@ -170,13 +171,11 @@ namespace LiteCommerce.DataLayers.SqlServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"SELECT * FROM 
-                                        (
-	                                        SELECT *, ROW_NUMBER() OVER(ORDER BY CustomerID) AS RowNumber
-	                                        FROM dbo.Customers
-	                                        WHERE (@searchValue = N'') OR (CompanyName LIKE @searchValue)
-                                        )AS t  WHERE t.RowNumber BETWEEN (@page - 1) * @pageSize + 1 AND (@page * @pageSize)
-                                        ORDER BY t.RowNumber";
+                    cmd.CommandText = @"SELECT * FROM (
+	                                    SELECT *, ROW_NUMBER() OVER (ORDER BY CustomerID) AS RowNumber
+	                                    FROM dbo.Customers
+	                                    WHERE (@searchValue = N'') OR (CompanyName LIKE @searchValue)
+                                    )AS t WHERE t.RowNumber BETWEEN (@page - 1) * @pageSize + 1 AND (@page * @pageSize)";
                     cmd.CommandType = System.Data.CommandType.Text;
                     cmd.Connection = connection;
                     cmd.Parameters.AddWithValue("@page", page);
@@ -187,8 +186,8 @@ namespace LiteCommerce.DataLayers.SqlServer
                     {
                         while (dbReader.Read())
                         {
-                            data.Add(new Customer()
-                            {                                                                CustomerID = Convert.ToString(dbReader["CustomerID"]),
+                            data.Add(new Customer() {
+                                CustomerID = Convert.ToString(dbReader["CustomerID"]),
                                 CompanyName = Convert.ToString(dbReader["CompanyName"]),
                                 ContactName = Convert.ToString(dbReader["ContactName"]),
                                 ContactTitle = Convert.ToString(dbReader["ContactTitle"]),
@@ -206,7 +205,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
 
-        public bool Update(Customer data)
+        public bool Update(Customer customer)
         {
             int rowsAffected = 0;
             using (SqlConnection connection = new SqlConnection(this.connectionString))
@@ -214,30 +213,21 @@ namespace LiteCommerce.DataLayers.SqlServer
                 connection.Open();
 
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"UPDATE Customers 
-	                                    SET 
-		                                    CompanyName = @CompanyName, 
-		                                    ContactName = @ContactName,
-		                                    ContactTitle= @ContactTitle, 
-		                                    Address = @Address, 
-		                                    City= @City,
-                                            Country = @Country, 
-		                                    Phone = @Phone, 
-		                                    Fax = @Fax
-	                                    WHERE CustomerID = @CustomerID";
-                //UPDATE NHANVIEN SET DIACHI = 'Hanoi' WHERE ID = 3;
+                cmd.CommandText = @"UPDATE dbo.Customers SET CompanyName = @CompanyName, ContactName = @ContactName, 
+                            ContactTitle = @ContactTitle, Address = @Address, City = @City, Country = @Country,
+                            Phone = @Phone, Fax = @Fax WHERE CustomerID = @CustomerID";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
-                //TODO: Bổ sung tham số cho lệnh cập nhật
-                cmd.Parameters.AddWithValue("@SupplierID", data.CustomerID);
-                cmd.Parameters.AddWithValue("@CompanyName", data.CompanyName);
-                cmd.Parameters.AddWithValue("@ContactName", data.ContactName);
-                cmd.Parameters.AddWithValue("@ContactTitle", data.ContactTitle);
-                cmd.Parameters.AddWithValue("@Address", data.Address);
-                cmd.Parameters.AddWithValue("@City", data.City);
-                cmd.Parameters.AddWithValue("@Country", data.Country);
-                cmd.Parameters.AddWithValue("@Phone", data.Phone);
-                cmd.Parameters.AddWithValue("@Fax", data.Fax);
+                
+                cmd.Parameters.AddWithValue("CompanyName", customer.CompanyName);
+                cmd.Parameters.AddWithValue("ContactName", customer.ContactName);
+                cmd.Parameters.AddWithValue("ContactTitle", customer.ContactTitle);
+                cmd.Parameters.AddWithValue("Address", customer.Address);
+                cmd.Parameters.AddWithValue("Country", customer.Country);
+                cmd.Parameters.AddWithValue("City", customer.City);
+                cmd.Parameters.AddWithValue("Phone", customer.Phone);
+                cmd.Parameters.AddWithValue("Fax", customer.Fax);
+                cmd.Parameters.AddWithValue("CustomerID", customer.CustomerID);
 
                 rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
 

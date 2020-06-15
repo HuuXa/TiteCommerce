@@ -1,4 +1,4 @@
-﻿using LiteCommerce.BusinessLayers;
+﻿using LiteCommerce.BussinessLayers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,14 +8,20 @@ using System.Web;
 namespace LiteCommerce.Admin
 {
     /// <summary>
-    /// khởi tạo các chức năng tác nghiệp cho ứng dụng
+    /// Khởi tạo các chức năng tác nghiệp cho ứng dụng
     /// </summary>
     public static class BusinessLayerConfig
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static void Initialize()
         {
-            string ConnectionString = ConfigurationManager.ConnectionStrings["LiteCommerce"].ConnectionString;
-            CatalogBLL.Initialize(ConnectionString);// bổ sung khởi tạp các BLL khác khi sử dụng
+            string connectionString = ConfigurationManager.ConnectionStrings["LiteCommerce"].ConnectionString;
+            CatalogBLL.Initialize(connectionString);
+            HumanResourceBLL.Initialize(connectionString);
+            //TODO : Tạo các BLL khác khi cần sử dụng
+            UserAccountBLL.Initialize(connectionString);
         }
     }
 }

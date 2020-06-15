@@ -7,32 +7,39 @@ using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IShipperDAL
     {
         /// <summary>
-        /// bổ sung thêm 1 cái Shipper
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns>ID của Shipper được bổ sung( nhỏ hơn or = 0 nếu lỗi)</returns>
-        int Add(Shipper data);
-        /// <summary>
         /// 
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="shipper"></param>
         /// <returns></returns>
-        bool Update(Shipper data);
+        int Add(Shipper shipper);
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="supplierIDs"></param>
+        /// <param name="shipper"></param>
+        /// <returns></returns>
+        bool Update(Shipper shipper);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shipperIDs"></param>
         /// <returns></returns>
         bool Delete(int[] shipperIDs);
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="supplierID"></param>
+        /// <param name="shipperID"></param>
         /// <returns></returns>
         Shipper Get(int shipperID);
+
         /// <summary>
         /// 
         /// </summary>
@@ -40,8 +47,13 @@ namespace LiteCommerce.DataLayers
         /// <param name="pageSize"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        List<Shipper> List(int page, int pageSize, string searchValue );
+        List<Shipper> List(string searchValue);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         int Count(string searchValue);
     }
 }

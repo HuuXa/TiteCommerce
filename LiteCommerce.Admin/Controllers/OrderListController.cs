@@ -6,7 +6,6 @@ using System.Web.Mvc;
 
 namespace LiteCommerce.Admin.Controllers
 {
-     [Authorize]
     public class OrderListController : Controller
     {
         // GET: OrderList

@@ -7,33 +7,39 @@ using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IOrderDAL
     {
-      
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="order"></param>
         /// <returns></returns>
-        int Add(Order data);
-       /// <summary>
-       /// 
-       /// </summary>
-       /// <param name="data"></param>
-       /// <returns></returns>
-        bool Update(Order data);
-   /// <summary>
-   /// 
-   /// </summary>
-   /// <param name="orderIDs"></param>
-   /// <returns></returns>
-        bool Delete(string[] orderIDs);
+        int Add(Order order);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        bool Update(Order order);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="orderIDs"></param>
+        /// <returns></returns>
+        bool Delete(int[] orderIDs);
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="orderID"></param>
         /// <returns></returns>
-        Order Get(string orderID);
+        Order Get(int orderID);
+
         /// <summary>
         /// 
         /// </summary>
@@ -41,7 +47,12 @@ namespace LiteCommerce.DataLayers
         /// <param name="pageSize"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-   
         List<Order> List(int page, int pageSize, string searchValue);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
+        int Count(string searchValue);
     }
 }

@@ -1,0 +1,88 @@
+﻿@model LiteCommerce.DomainModels.Product
+
+@{
+   
+}
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="box-header with-border">
+            <h3 class="box-title">@ViewBag.Title</h3>
+        </div>
+        <!-- form start -->
+        <form role="form" action="~/Product/Input" method="post">
+            <div class="box-header text-right">
+                <a href="~/Product">Back to list</a>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="">Product Name</label> @Html.ValidationMessage("ProductName", new { @style = "color : red;" })
+                    <input type="text" class="form-control" id="" placeholder="Enter product name" value="@Model.ProductName" name="ProductName">
+                </div>
+                <div class="col-md-6">
+                    <label for="">Category</label>
+
+                    <select class="form-control" name="categoryId">
+                        @foreach (var item in SelectListHelper.Categories())
+                        {
+                            if (item.Value == Convert.ToString(Model.CategoryID))
+                            {
+                                <option value="@item.Value" selected>@item.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="">Suppliers</label>
+                    <select class="form-control" name="supplierID">
+                        @foreach (var item in SelectListHelper.Suppliers())
+                        {
+                            if (item.Value == Convert.ToString(Model.SupplierID))
+                            {
+                                <option value="@item.Value" selected>@item.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="">Quantity Per Unit</label>
+                        @Html.ValidationMessage("QuantityPerUnit", new { @style = "color : red;" })
+                        <input type="text" class="form-control" id="" placeholder="Enter quantity per unit" value="@Model.QuantityPerUnit" name="QuantityPerUnit">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Unit Price</label>
+                        @Html.ValidationMessage("UnitPrice", new { @style = "color : red;" })
+                        <input type="text" class="form-control" id="" placeholder="Enter unit price" value="@Model.UnitPrice" name="UnitPrice">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Desciption</label>
+                    <input type="text" class="form-control" id="" placeholder="Desciption" value="@Model.Descriptions" name="Descriptions">
+                </div>
+                <div class="form-group">
+                    <label for="">Image</label>
+
+                    <img src="~/Images/@Model.PhotoPath" height="150" width="140" />
+                    <input type="file" id="img" name="PhotoPath" value="~/Images/@Model.PhotoPath">
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-default">Cancer</button>
+                @Html.ValidationMessage("", new { @style = "color : red;" })
+            </div>
+        </form>
+</div>
+</div>
+
+

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace LiteCommerce.Admin.Models
 {
-    public class CustomerPaginationResult :PaginationResult
+    public class CustomerPaginationResult : PaginationResult
     {
         public List<Customer> Data;
     }

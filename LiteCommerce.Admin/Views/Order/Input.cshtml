@@ -1,0 +1,109 @@
+﻿@model LiteCommerce.DomainModels.Order
+@{
+
+}
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="box-header with-border">
+            <h3 class="box-title">@ViewBag.Title</h3>
+        </div>
+        <!-- form start -->
+        <form role="form" action="~/Order/Input" method="post">
+            <div class="box-header text-right">
+                <a href="~/Order">Back to list</a>
+            </div>
+            <div class="box-body">
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="">CustommerID</label>
+                        <input style="display:block" type="text" class="form-control" id="" placeholder="@Model.OrderID" name="OrderID" value="@Model.OrderID">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">CustommerID</label>
+                        <input type="text" class="form-control" id="" placeholder="Enter CustomerID" name="CustomerID" value="@Model.CustomerID">
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="">EmplyeeID</label>
+                        <input type="text" class="form-control" id="" placeholder="Enter EmployeeID" name="EmployeeID" value="@Model.EmployeeID">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="">OrderDate</label>
+                        <input class="form-control" type="datetime" name="OrderDate"
+                               value="@string.Format("{0:dd/MM/yyyy 00:00:00}", Model.RequiredDate)" id="">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">RequiredDate</label>
+                        <input class="form-control" type="datetime" name="RequiredDate"
+                               value="@string.Format("{0:dd/MM/yyyy 00:00:00}", Model.RequiredDate)" id="">
+                    </div>
+                    <div class="col-md-6" style="padding-top:10px; left: 285px">
+                        <label for="">ShippedDate</label>
+                        <input class="form-control" type="datetime" name="ShippedDate"
+                               value="@string.Format("{0:dd/MM/yyyy 00:00:00}", Model.ShippedDate)" id="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="">Country</label>
+                        <select class="form-control" name="ShipCountry">
+
+                            @foreach (var item in SelectListHelper.Countries())
+                            {
+                                if (item.Value == Model.ShipCountry)
+                                {
+                                    <option value="@item.Value" selected>@item.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="">City</label>
+                        <input type="text" class="form-control" id="" placeholder="Enter City" name="ShipCity" value="@Model.ShipCity">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="">Ship Address</label>
+                        <div class="input-group">
+                            <input type="tel" class="form-control" data-inputmask="'mask': ['999-999-9999 [x99999]', '+099 99 99 9999[9]-9999']" data-mask=""
+                                   name="ShipAddress" value="@Model.ShipAddress">
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Freight</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" data-inputmask="'mask': ['999-999-9999 [x99999]', '+099 99 99 9999[9]-9999']" data-mask=""
+                                   name="Freight" value="@Model.Freight">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Shipper</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="http://google.com" name="ShipperID" value="@Model.ShipperID">
+                    </div>
+                </div>
+                <div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a href="~/order" class="btn btn-default">Cancer</a>
+            </div>
+            @Html.ValidationMessage("", new { @style = "color : red;" })
+        </form>
+    </div>
+</div>
+

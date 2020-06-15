@@ -8,8 +8,11 @@ namespace LiteCommerce.Admin.Models
     public class PaginationResult
     {
         public int Page { get; set; }
+
         public int PageSize { get; set; }
+
         public int RowCount { get; set; }
+
         public int PageCount
         {
             get
@@ -21,6 +24,7 @@ namespace LiteCommerce.Admin.Models
                 return pageCount;
             }
         }
+
         public string SearchValue { get; set; }
-}
+    }
 }

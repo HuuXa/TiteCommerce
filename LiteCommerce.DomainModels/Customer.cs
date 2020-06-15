@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LiteCommerce.DomainModels
 {
     /// <summary>
-    /// khai  báo các thành phần trog customer
+    /// Thông tin về Khách hàng
     /// </summary>
     public class Customer
     {

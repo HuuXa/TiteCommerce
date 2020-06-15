@@ -1,0 +1,22 @@
+E:\ASP DOT NET\LiteCommerce\LiteCommerce.BussinessLayers\bin\Debug\LiteCommerce.BussinessLayers.dll
+E:\ASP DOT NET\LiteCommerce\LiteCommerce.BussinessLayers\bin\Debug\LiteCommerce.BussinessLayers.pdb
+E:\ASP DOT NET\LiteCommerce\LiteCommerce.BussinessLayers\obj\Debug\LiteCommerce.BusinessLayers.csprojAssemblyReference.cache
+E:\ASP DOT NET\LiteCommerce\LiteCommerce.BussinessLayers\obj\Debug\LiteCommerce.BusinessLayers.csproj.CoreCompileInputs.cache
+E:\ASP DOT NET\LiteCommerce\LiteCommerce.BussinessLayers\obj\Debug\LiteCommerce.BussinessLayers.dll
+E:\ASP DOT NET\LiteCommerce\LiteCommerce.BussinessLayers\obj\Debug\LiteCommerce.BussinessLayers.pdb
+E:\ASP DOT NET\LiteCommerce\LiteCommerce.BussinessLayers\bin\Debug\LiteCommerce.DataLayers.dll
+E:\ASP DOT NET\LiteCommerce\LiteCommerce.BussinessLayers\bin\Debug\LiteCommerce.DomainModels.dll
+E:\ASP DOT NET\LiteCommerce\LiteCommerce.BussinessLayers\bin\Debug\LiteCommerce.DataLayers.pdb
+E:\ASP DOT NET\LiteCommerce\LiteCommerce.BussinessLayers\bin\Debug\LiteCommerce.DomainModels.pdb
+E:\ASP DOT NET\LiteCommerce\LiteCommerce.BussinessLayers\obj\Debug\LiteCommerce.BusinessLayers.csproj.CopyComplete
+C:\Users\HUUXA\Desktop\LiteCommerce-master\LiteCommerce\LiteCommerce.BussinessLayers\bin\Debug\LiteCommerce.BussinessLayers.dll
+C:\Users\HUUXA\Desktop\LiteCommerce-master\LiteCommerce\LiteCommerce.BussinessLayers\bin\Debug\LiteCommerce.BussinessLayers.pdb
+C:\Users\HUUXA\Desktop\LiteCommerce-master\LiteCommerce\LiteCommerce.BussinessLayers\bin\Debug\LiteCommerce.DataLayers.dll
+C:\Users\HUUXA\Desktop\LiteCommerce-master\LiteCommerce\LiteCommerce.BussinessLayers\bin\Debug\LiteCommerce.DomainModels.dll
+C:\Users\HUUXA\Desktop\LiteCommerce-master\LiteCommerce\LiteCommerce.BussinessLayers\bin\Debug\LiteCommerce.DataLayers.pdb
+C:\Users\HUUXA\Desktop\LiteCommerce-master\LiteCommerce\LiteCommerce.BussinessLayers\bin\Debug\LiteCommerce.DomainModels.pdb
+C:\Users\HUUXA\Desktop\LiteCommerce-master\LiteCommerce\LiteCommerce.BussinessLayers\obj\Debug\LiteCommerce.BusinessLayers.csprojAssemblyReference.cache
+C:\Users\HUUXA\Desktop\LiteCommerce-master\LiteCommerce\LiteCommerce.BussinessLayers\obj\Debug\LiteCommerce.BusinessLayers.csproj.CoreCompileInputs.cache
+C:\Users\HUUXA\Desktop\LiteCommerce-master\LiteCommerce\LiteCommerce.BussinessLayers\obj\Debug\LiteCommerce.BusinessLayers.csproj.CopyComplete
+C:\Users\HUUXA\Desktop\LiteCommerce-master\LiteCommerce\LiteCommerce.BussinessLayers\obj\Debug\LiteCommerce.BussinessLayers.dll
+C:\Users\HUUXA\Desktop\LiteCommerce-master\LiteCommerce\LiteCommerce.BussinessLayers\obj\Debug\LiteCommerce.BussinessLayers.pdb

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace LiteCommerce.DomainModels
 {
     /// <summary>
-    /// khai báo  các thông tin của order
+    /// Thông tin về Đơn hàng
     /// </summary>
     public class Order
     {
@@ -18,10 +19,9 @@ namespace LiteCommerce.DomainModels
         public DateTime RequiredDate { get; set; }
         public DateTime ShippedDate { get; set; }
         public int ShipperID { get; set; }
-        public long Freight { get; set; }
+        public string Freight { get; set; }
         public string ShipAddress { get; set; }
         public string ShipCity { get; set; }
         public string ShipCountry { get; set; }
-
     }
 }

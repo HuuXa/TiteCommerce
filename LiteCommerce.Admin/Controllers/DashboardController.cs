@@ -9,6 +9,7 @@ namespace LiteCommerce.Admin.Controllers
     /// <summary>
     /// 
     /// </summary>
+    
     [Authorize]
     public class DashboardController : Controller
     {
@@ -16,7 +17,6 @@ namespace LiteCommerce.Admin.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        // GET: Dashboard
         public ActionResult Index()
         {
             return View();

@@ -6,6 +6,9 @@ using System.Web;
 
 namespace LiteCommerce.Admin
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AppSettings
     {
         public static int DefaultPageSize

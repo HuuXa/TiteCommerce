@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace LiteCommerce.DomainModels
 {
     /// <summary>
-    /// 
-    /// Khai báo thành phần Employee
+    /// Thông tin về Employee
     /// </summary>
     public class Employee
-    {
-
+    { 
         public int EmployeeID { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
@@ -27,6 +26,5 @@ namespace LiteCommerce.DomainModels
         public string Notes { get; set; }
         public string PhotoPath { get; set; }
         public string Password { get; set; }
-
     }
 }

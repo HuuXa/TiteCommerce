@@ -1,0 +1,130 @@
+﻿@model LiteCommerce.Admin.Models.ProductPaginationResult
+@{
+    int i = 0;
+}
+<!-- general form elements -->
+<h2>Products</h2>
+<div class="container-fluid">
+    <!-- .box -->
+    <div class="box box-primary">
+        <div class="box-body">
+            <form action="~/Product" method="get">
+                <div class="input-group input-group-sm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select class="form-control" name="categoryId">
+                                @foreach (var item in SelectListHelper.Categories())
+                                {
+                                    if (item.Value == Model.Category)
+                                    {
+                                        <option value="@item.Value" selected>@item.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-control" name="supplierId">
+                                @foreach (var item in SelectListHelper.Suppliers())
+                                {
+                                    if (item.Value == Model.Supplier)
+                                    {
+                                        <option value="@item.Value" selected>@item.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" value="@Model.SearchValue" placeholder="Input search value..." name="searchValue">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary btn-flat">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /.box -->
+    <form action="~/product/delete" method="post">
+        <div class="row" style="margin-bottom: 50px;">
+            <div class="col-sm-8">
+                There are @Model.RowCount product. @Model.Page/@Model.PageCount
+            </div>
+
+            <div class="col-md-4 text-right">
+                <div class="btn-group">
+                    <a href="~/Product/Input" type="button" class="btn btn-sm btn-primary">Add Product</a>
+                    <button type="submit" class="btn btn-sm btn-danger" name="method" value="delete">Delete Product</button>
+                </div>
+            </div>
+        </div>
+        <div class="box box-success">
+            <div class="box-body">
+                <table class="table table-bordered table_info">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" /></th>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Quantity Per Unit</th>
+                            <th>Unit Price</th>
+                            <th>Description</th>
+                            <th>Image</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Data)
+                        {
+                            <tr>
+                                <td><input type="checkbox" name="productIDs" value="@item.ProductID"/></td>
+                                <td>
+                                    @(i++)
+                                </td>
+                                <td>
+                                    <span class="info-company-name">@item.ProductName</span>
+                                </td>
+                                <td>
+                                    <span>@item.QuantityPerUnit</span>
+                                </td>
+                                <td>
+                                    <span>@item.UnitPrice</span>
+                                </td>
+                                <td>
+                                    <span>@item.Descriptions</span>
+                                </td>
+                                <td>
+                                    <span>@item.PhotoPath</span>
+                                </td>
+                                <td class="text-right">
+                                    <a class="btn btn-sm btn-default" href="~/Product/Input/@item.ProductID">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="box-footer clearfix">
+                <ul class="pagination pagination-sm no-margin pull-right">
+                    <li><a href="~/Product?page=1&categoryId=@Model.Category&supplierId=@Model.Supplier&searchValue=@Model.SearchValue">«</a></li>
+                    @for (int page = 1; page <= Model.PageCount; page++)
+                    {
+                        <li><a href="~/Product?page=@page&categoryId=@Model.Category&supplierId=@Model.Supplier&searchValue=@Model.SearchValue">@page</a></li>
+                    }
+                    <li><a href="~/Product?page=@Model.PageCount&searchValue=@Model.SearchValue">»</a></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+

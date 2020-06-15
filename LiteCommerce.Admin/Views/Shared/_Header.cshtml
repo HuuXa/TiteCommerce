@@ -1,10 +1,14 @@
-﻿<header class="main-header">
+﻿@{ 
+    WebUserData userData = User.GetUserData();
+}
+
+<header class="main-header">
     <!-- Logo -->
-    <a href="~/" class="logo">
+    <a href="~/Dashboard" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>A</b>LT</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Admin</b>LTE</span>
+        <span class="logo-lg"><b>Lite</b>Commerce</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -15,6 +19,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </a>
+
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <!-- Messages: style can be found in dropdown.less-->
@@ -32,7 +37,7 @@
                                     <!-- start message -->
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="~/Themes/AdminLTE/dist/img/76967065_582866618922221_692346855509458944_n.jpg  " class="img-circle" alt="User Image">
+                                            <img src="~/Images/@userData.Photo" class="img-circle" alt="User Image">
                                         </div>
                                         <h4>
                                             Support Team
@@ -105,44 +110,29 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="~/Themes/AdminLTE/dist/img/76967065_582866618922221_692346855509458944_n.jpg" class="user-image" alt="User Image">
-                        <span class="hidden-xs">Huu Xa</span>
+                        <img src="~/Images/@userData.Photo" class="user-image" alt="User Image">
+                        <span class="hidden-xs">@userData.FullName</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="~/Themes/AdminLTE/dist/img/76967065_582866618922221_692346855509458944_n.jpg" class="img-circle" alt="User Image">
+                            <img src="~/Images/@userData.Photo" class="img-circle" alt="User Image">
+
                             <p>
-                                Huu Xa - Web Developer
-                                <small>Member since Nov. 2012</small>
+                                @userData.FullName
+                                <small>@userData.GroupName</small>
                             </p>
                         </li>
-                        <!-- Menu Body -->
-                        <li class="user-body">
-                            <div class="row">
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Followers</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Sales</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Friends</a>
-                                </div>
-                            </div>
-                            <!-- /.row -->
-                        </li>
                         <!-- Menu Footer-->
-                        <li class="user-footer"style="display:flex">
+                        <li class="user-footer">
                             <div class="pull-left">
-                                <a href="~/account" class="btn btn-default btn-flat">Profile</a>
+                                <a href="~/Account" class="btn btn-default btn-flat">Profile</a>
                             </div>
-                            <div class="pull-mid" style="padding-right: 10px;
-    padding-left: 10px;">
-                                <a href="~/account/changepwd" class="btn btn-default btn-flat">Change Pass</a>
+                            <div class="pull-left">
+                                <a href="~/Account/ChangePwd" style="margin-left: 10px;" class="btn btn-default btn-flat">Change Pass</a>
                             </div>
                             <div class="pull-right">
-                                <a href="~/account/SignOut" class="btn btn-default btn-flat">Sign out</a>
+                                <a href="~/Account/SignOut" class="btn btn-default btn-flat">Sign out</a>
                             </div>
                         </li>
                     </ul>

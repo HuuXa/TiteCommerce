@@ -1,40 +1,35 @@
 ﻿
 @{
-    ViewBag.Title = "Profile Account";
+    ViewBag.Title = "Profile";
+    WebUserData userData = User.GetUserData();
 }
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="box box-primary">
+            <div class="box-body box-profile">
+                <img class="profile-user-img img-responsive img-circle" src="~/Images/@userData.Photo" alt="User profile picture">
 
-<div class="box box-primary">
-    <a href="~/Account/InputProfile" class="btn btn-app pull-right"style="min-width:40px; min-height:0px; padding:0px; height:35px" >
-        <i class="fa fa-edit" style="font-size:10px"></i> Edit
-    </a>
-    <img class="profile-user-img img-responsive img-circle" src="~/Themes/AdminLTE/dist/img/76967065_582866618922221_692346855509458944_n.jpg" alt="User profile picture">
-    <div class="form-horizontal">
-        <div class="box-body" style="width:800px; margin:auto auto;font-size:20px">
-            <div class="form-group " style="margin:10px 280px;width:800px;">
-                <label class="col-sm-2">Username:</label>
+                <h3 class="profile-username text-center">@userData.FullName</h3>
 
-                <span> Huu Xa</span>
+                <p class="text-muted text-center">Software Engineer</p>
 
-            </div>
-            <div class="form-group " style="margin:10px 280px;width:800px;">
-                <label class="col-sm-2">Full Name:</label>
-                <span>Tran Huu Xa</span>
-            </div>
-            <div class="form-group " style="margin:10px 280px;width:800px;">
-                <label class="col-sm-2">Email:</label>
-                <span>admin@abc.com</span>
-            </div>
-            <div class="form-group " style="margin:10px 280px;width:800px;">
-                <label class="col-sm-2">Phone:</label>
-                <span>03456789</span>
-            </div>
-            <div class="form-group " style="margin:10px 280px;width:800px;">
-                <label class="col-sm-2">address:</label>
-                <span>TT Huế</span>
-            </div>
+                <ul class="list-group list-group-unbordered">
+                    <li class="list-group-item">
+                        <b>Name</b> <a class="pull-right">@userData.FullName</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Group</b> <a class="pull-right">@userData.GroupName</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Title</b> <a class="pull-right">@userData.Title</a>
+                    </li>
+                </ul>
 
+                <a href="#" class="btn btn-primary btn-block"><b>Edit</b></a>
+            </div>
         </div>
-        <!-- /.box-body -->
-        <!-- /.box-footer -->
     </div>
+    <div class="col-md-3"></div>
+    <!-- /.box-body -->
 </div>

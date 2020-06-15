@@ -1,13 +1,16 @@
-﻿<aside class="main-sidebar">
+﻿@{
+    WebUserData userData = User.GetUserData();
+}
+<aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="~/Themes/AdminLTE/dist/img/76967065_582866618922221_692346855509458944_n.jpg" class="img-circle" alt="User Image">
+                <img src="~/Images/@userData.Photo" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>Huu Xa</p>
+                <p>@userData.FullName</p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -26,29 +29,50 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
-            @{ Html.RenderPartial("_Dashboard");}
-            @{ Html.RenderPartial("_Catalog");}
+            <li>
+                <a href="~/Dashboard">
+                    <i class="fa fa-dashboard"></i><span>Dashboard</span>
+                </a>
+            </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-laptop"></i>
-                    <span>Manage Order</span>
+                    <i class="fa fa-files-o"></i>
+                    <span>Catalog</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    @{ Html.RenderPartial("_OralersList");}
-                    @{ Html.RenderPartial("_OralersCreatr");}
+                    <li><a href="~/Supplier"><i class="fa fa-circle-o"></i> Suppliers</a></li>
+                    <li><a href="~/Customer"><i class="fa fa-circle-o"></i> Customers</a></li>
+                    <li><a href="~/Shipper"><i class="fa fa-circle-o"></i> Shippers</a></li>
+                    <li><a href="~/Category"><i class="fa fa-circle-o"></i> Categorys</a></li>
+                    <li><a href="~/Product"><i class="fa fa-circle-o"></i> Products</a></li>
                 </ul>
             </li>
-
-            @{ Html.RenderPartial("_Employees");}
-            @{ Html.RenderPartial("_Report");}
-            @*<li class="header">LABELS</li>
-            <li><a href="#"><i class="fa fa-circle-o text-green"></i> <span>Online</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>*@
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>Manage Orders</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="~/Order"><i class="fa fa-circle-o"></i>OrderList</a></li>
+                    <li><a href="~/Order/Create"><i class="fa fa-circle-o"></i>Order</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="~/Employee">
+                    <i class="fa fa-th"></i><span>Employees</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-area-chart"></i> <span>Reposts</span>
+                </a>
+            </li>
         </ul>
     </section>
     <!-- /.sidebar -->
