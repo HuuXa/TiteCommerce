@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace LiteCommerce.DataLayers
 {
@@ -17,7 +18,7 @@ namespace LiteCommerce.DataLayers
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>
-        int Add(Product product);
+        int Add(Product product, HttpPostedFileBase file);
 
         /// <summary>
         /// 
@@ -53,6 +54,6 @@ namespace LiteCommerce.DataLayers
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        int Count(string searchValue);
+        int Count(string searchValue, string categoryId, string supplierId);
     }
 }

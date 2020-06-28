@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Profile";
     WebUserData userData = User.GetUserData();
 }
@@ -24,9 +23,12 @@
                     <li class="list-group-item">
                         <b>Title</b> <a class="pull-right">@userData.Title</a>
                     </li>
+                    <li class="list-group-item">
+                        <b>Addrese</b> <a class="pull-right">@userData.Country-@userData.City-@userData.Address </a>
+                    </li>
                 </ul>
 
-                <a href="#" class="btn btn-primary btn-block"><b>Edit</b></a>
+                <a href="~/Account/EditAccount" class="btn btn-primary btn-block"><b>Edit</b></a>
             </div>
         </div>
     </div>

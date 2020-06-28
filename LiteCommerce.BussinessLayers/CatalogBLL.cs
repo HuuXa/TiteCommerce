@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace LiteCommerce.BussinessLayers
 {
@@ -25,6 +26,7 @@ namespace LiteCommerce.BussinessLayers
         private static ICountrieDAL CountrieDB { get; set; }
         private static IOrderDAL OrderDB { get; set; }
         private static IOrderDetailDAL OrderDetailDB { get; set; }
+        private static IProductAttributeDAL ProductAttributeDB { get; set; }
 
         /// <summary>
         /// Hàm này được gọi để khởi tạo các chức năng tác nghiệp
@@ -41,6 +43,7 @@ namespace LiteCommerce.BussinessLayers
             CountrieDB = new DataLayers.SqlServer.CountrieDAL(connectionString);
             OrderDB = new DataLayers.SqlServer.OrderDAL(connectionString);
             OrderDetailDB = new DataLayers.SqlServer.OrderDetailDAL(connectionString);
+            ProductAttributeDB = new DataLayers.SqlServer.ProductAttributeDAL(connectionString);
         }
 
         #region Supplier
@@ -248,9 +251,13 @@ namespace LiteCommerce.BussinessLayers
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public static List<Category> Category_List(string searchValue)
+        public static List<Category> Category_List(int page, int pageSize, string searchValue)
         {
-            return CategoryDB.List(searchValue);
+            if (page < 1)
+                page = 1;
+            if (pageSize <= 0)
+                pageSize = 30;
+            return CategoryDB.List(page, pageSize, searchValue);
         }
 
         /// <summary>
@@ -320,11 +327,12 @@ namespace LiteCommerce.BussinessLayers
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public static int Employee_Count(string searchValue)
-        {
-            return EmployeeDB.Count(searchValue);
-        }
+   
 
+        public static int Employee_Count(string searchValue, string country)
+        {
+            return EmployeeDB.Count(searchValue, country);
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -360,9 +368,13 @@ namespace LiteCommerce.BussinessLayers
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public static List<Employee> Employee_List(string searchValue)
+        public static List<Employee> Employee_List(int page, int pageSize, string searchValue, string country)
         {
-            return EmployeeDB.List(searchValue);
+            if (page < 1)
+                page = 1;
+            if (pageSize <= 0)
+                pageSize = 30;
+            return EmployeeDB.List(page, pageSize, searchValue, country);
         }
         #endregion
        
@@ -372,9 +384,9 @@ namespace LiteCommerce.BussinessLayers
         /// </summary>
         /// <param name="employee"></param>
         /// <returns></returns>
-        public static int Product_Add(Product product)
+        public static int Product_Add(Product product, HttpPostedFileBase file)
         {
-            return ProductDB.Add(product);
+            return ProductDB.Add(product, file);
         }
 
         /// <summary>
@@ -382,9 +394,9 @@ namespace LiteCommerce.BussinessLayers
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public static int Product_Count(string searchValue)
+        public static int Product_Count(string searchValue, string categoryId, string supplierId)
         {
-            return ProductDB.Count(searchValue);
+            return ProductDB.Count(searchValue, categoryId, supplierId);
         }
 
         /// <summary>
@@ -575,6 +587,29 @@ namespace LiteCommerce.BussinessLayers
         public static bool OrderDetail_Update(OrderDetail orderDetail)
         {
             return OrderDetailDB.Update(orderDetail);
+        }
+        #endregion
+
+        #region ProductAttribute
+        public static List<ProductAttribute> ProductAttribute_List(int productID)
+        {
+            return ProductAttributeDB.List(productID);
+        }
+        public static int ProductAttribute_Add(ProductAttribute data)
+        {
+            return ProductAttributeDB.Add(data);
+        }
+        public static ProductAttribute ProductAttribute_Get(int attributeID)
+        {
+            return ProductAttributeDB.Get(attributeID);
+        }
+        public static bool ProductAttribute_Update(ProductAttribute data)
+        {
+            return ProductAttributeDB.Update(data);
+        }
+        public static bool ProductAttribute_Delete(int[] atrributeIDs)
+        {
+            return ProductAttributeDB.Delete(atrributeIDs);
         }
         #endregion
     }

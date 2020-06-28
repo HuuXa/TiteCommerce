@@ -7,7 +7,7 @@ using LiteCommerce.DomainModels;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
-    public class CustomerUserAccountDAL : IUserAccountDAL
+    public class CustomerUserAccountDAL //: //IUserAccountDAL
     {
         private string connectionString;
 
@@ -20,5 +20,7 @@ namespace LiteCommerce.DataLayers.SqlServer
         {
             throw new NotImplementedException();
         }
+
+    
     }
 }

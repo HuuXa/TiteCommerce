@@ -17,13 +17,16 @@ namespace LiteCommerce.Admin.Controllers
         /// Quản lý Employeee
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(string searchValue = "")
+        public ActionResult Index(int page = 1, string searchValue = "", string country = "")
         {
             var model = new Models.EmployeePaginationResult()
             {
-                RowCount = CatalogBLL.Employee_Count(searchValue),
+                Page = page,
+                PageSize = 3,
+                RowCount = CatalogBLL.Employee_Count(searchValue, country),
                 SearchValue = searchValue,
-                Data = CatalogBLL.Employee_List(searchValue)
+                Country = country,
+                Data = CatalogBLL.Employee_List(page, 3, searchValue, country)
             };
             return View(model);
         }
@@ -83,7 +86,7 @@ namespace LiteCommerce.Admin.Controllers
                 }
 
                 // Kiem tra email tồn tại khi thêm mới
-                if (!HumanResourceBLL.Employee_CheckEmail(model.Email, model.EmployeeID != 0))
+                if (!HumanResourceBLL.Employee_CheckEmail(model.Email , ""))
                 {
                     ModelState.AddModelError("Email", "Email is exist");
                 }
@@ -138,7 +141,7 @@ namespace LiteCommerce.Admin.Controllers
                 if (PhotoPath != null)
                 {
                     string FileName = $"{DateTime.Now.Ticks}{Path.GetExtension(PhotoPath.FileName)}";
-                    string path = Path.Combine(Server.MapPath("~/Images/uploads"), FileName);
+                    string path = Path.Combine(Server.MapPath("~/Images"), FileName);
                     PhotoPath.SaveAs(path);
                     model.PhotoPath = FileName;
                 }

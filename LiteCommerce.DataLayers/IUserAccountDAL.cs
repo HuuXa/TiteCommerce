@@ -20,6 +20,12 @@ namespace LiteCommerce.DataLayers
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-      UserAccount Authorize(string userName, string password);
+        UserAccount Authorize(string userName, string password);
+        /// <param name="email">email</param>
+        /// <returns></returns>
+        Employee GetProfile(string email);
+        bool UpdateProfile(Employee data);
+        bool ChangePassword(string email, string newPass);
+        bool ChangeForgotPassword(string newPass);
     }
 }

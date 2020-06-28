@@ -132,33 +132,43 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
 
-        public List<Category> List(string searchValue)
+        public List<Category> List(int page, int pageSize, string searchValue)
         {
             List<Category> data = new List<Category>();
-
             if (!string.IsNullOrEmpty(searchValue))
+            {
                 searchValue = "%" + searchValue + "%";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            }
+            using (SqlConnection connection = new SqlConnection(connectionString)) //Tạo đối tượng kết nối CSDL
             {
                 connection.Open();
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlCommand cmd = new SqlCommand())//Thực hiện truy vấn CSDL
                 {
-                    cmd.CommandText = @"SELECT * FROM dbo.Categories
-                                    WHERE (@searchValue = N'') OR (CategoryName LIKE @searchValue)";
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.Connection = connection;
+                    cmd.CommandText = @"select *
+                                        from
+                                        (
+	                                        select *,
+	                                        ROW_NUMBER() over(order by CategoryID) as RowNumber
+	                                        from Categories
+	                                        where (@searchValue = N'') or(CategoryName like @searchValue)
+                                        ) as t
+                                        where t.RowNumber between (@page-1)*@pageSize + 1 and @page*@pageSize
+                                        order by t.RowNumber
+                                        ";//Câu truy vấn
+                    cmd.CommandType = System.Data.CommandType.Text; //Cho biết lệnh mà ta sd là lệnh gì
+                    cmd.Connection = connection;//lệnh kết nối
+                    cmd.Parameters.AddWithValue("@page", page);//Tham số truyền vào
+                    cmd.Parameters.AddWithValue("@pageSize", pageSize);
                     cmd.Parameters.AddWithValue("@searchValue", searchValue);
-
-                    using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    using (SqlDataReader dbreader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection))
                     {
-                        while (dbReader.Read())
+                        while (dbreader.Read())
                         {
-                            data.Add(new Category() {
-                                CategoryID = Convert.ToInt32(dbReader["CategoryID"]),
-                                CategoryName = Convert.ToString(dbReader["CategoryName"]),
-                                Description = Convert.ToString(dbReader["Description"])
-                            });
+                            Category category = new Category();
+                            category.CategoryID = Convert.ToInt32(dbreader["CategoryID"]);
+                            category.CategoryName = Convert.ToString(dbreader["CategoryName"]);
+                            category.Description = Convert.ToString(dbreader["Description"]);
+                            data.Add(category);
                         }
                     }
                 }

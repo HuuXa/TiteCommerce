@@ -124,6 +124,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Codes\AppSettings.cs" />
+    <Compile Include="Codes\EncodeMD5.cs" />
     <Compile Include="Codes\SelectListHelper.cs" />
     <Compile Include="Codes\WebUserData.cs" />
     <Compile Include="Codes\WebUserExtensions.cs" />
@@ -6610,7 +6611,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -7256,6 +7259,9 @@
     <Content Include="Views\Employee\Input.cshtml" />
     <Content Include="Views\OrderList\Index.cshtml" />
     <Content Include="Views\Order\Input.cshtml" />
+    <Content Include="Views\Account\EditAccount.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\Product\Add_Attr.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

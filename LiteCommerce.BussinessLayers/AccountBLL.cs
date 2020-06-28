@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LiteCommerce.BussinessLayers
 {
-    public class AccountBLL
+    public static class AccountBLL
     {
         private static IAccountDAL AccountDB { get; set; }
         public static void Initialize(string connectionString)
@@ -31,9 +31,9 @@ namespace LiteCommerce.BussinessLayers
         {
             return AccountDB.GetEmployee(account);
         }
-        public static bool Account_Update(Account account)
+        public static bool Account_Update(Account userAccount)
         {
-            return AccountDB.Update(account);
+            return AccountDB.Update(userAccount);
         }
     }
 }

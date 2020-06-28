@@ -33,24 +33,23 @@
                     <div class="col-md-6">
                         <label for="">OrderDate</label>
                         <input class="form-control" type="datetime" name="OrderDate"
-                               value="@string.Format("{0:dd/MM/yyyy 00:00:00}", Model.RequiredDate)" id="">
+                               value="@string.Format("{0:dd/MM/yyyy}", Model.RequiredDate)" id="">
                     </div>
                     <div class="col-md-6">
                         <label for="">RequiredDate</label>
                         <input class="form-control" type="datetime" name="RequiredDate"
-                               value="@string.Format("{0:dd/MM/yyyy 00:00:00}", Model.RequiredDate)" id="">
+                               value="@string.Format("{0:dd/MM/yyyy}", Model.RequiredDate)" id="">
                     </div>
                     <div class="col-md-6" style="padding-top:10px; left: 285px">
                         <label for="">ShippedDate</label>
                         <input class="form-control" type="datetime" name="ShippedDate"
-                               value="@string.Format("{0:dd/MM/yyyy 00:00:00}", Model.ShippedDate)" id="">
+                               value="@string.Format("{0:dd/MM/yyyy}", Model.ShippedDate)" id="">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-6">
                         <label for="">Country</label>
                         <select class="form-control" name="ShipCountry">
-
                             @foreach (var item in SelectListHelper.Countries())
                             {
                                 if (item.Value == Model.ShipCountry)
@@ -63,7 +62,6 @@
                                 }
                             }
                         </select>
-
                     </div>
 
                     <div class="col-md-6">

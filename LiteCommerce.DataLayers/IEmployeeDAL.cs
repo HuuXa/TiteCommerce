@@ -44,14 +44,14 @@ namespace LiteCommerce.DataLayers
         /// <param name="pageSize"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        List<Employee> List(string searchValue);
+        List<Employee> List(int page, int pageSize, string searchValue , string country);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        int Count(string searchValue);
+        int Count(string searchValue, string country);
 
         /// <summary>
         /// 
@@ -65,6 +65,6 @@ namespace LiteCommerce.DataLayers
         /// 
         /// </summary>
         /// <returns></returns>
-        bool CheckEmail(string email, bool isUpdate);
+        bool CheckEmail(string email, string type);
     }
 }

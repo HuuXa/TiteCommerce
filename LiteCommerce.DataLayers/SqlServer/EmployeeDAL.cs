@@ -116,26 +116,59 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <param name="email"></param>
         /// <param name="employees"></param>
         /// <returns></returns>
-        public bool CheckEmail(string email, bool isUpdate)
+        public bool CheckEmail(string email, string type)
         {
-            int cout = 0;
-            List<string> listEmail = new List<string>();
-            List<Employee> employees = List("");
-            employees.ForEach(employee => listEmail.Add(employee.Email)); 
+            List<Employee> data = new List<Employee>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
 
-            foreach(string subEmail in listEmail)
-            {
-                if (email == subEmail)
-                    cout++;
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"SELECT * FROM Employees WHERE Email = @Email";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@Email", email);
+
+                using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    while (dbReader.Read())
+                    {
+                        data.Add(
+                            new Employee()
+                            {
+                                EmployeeID = Convert.ToInt32(dbReader["EmployeeID"]),
+                                LastName = Convert.ToString(dbReader["LastName"]),
+                                FirstName = Convert.ToString(dbReader["FirstName"]),
+                                Title = Convert.ToString(dbReader["Title"]),
+                                BirthDate = Convert.ToDateTime(dbReader["BirthDate"]),
+                                HireDate = Convert.ToDateTime(dbReader["HireDate"]),
+                                Email = Convert.ToString(dbReader["Email"]),
+                                Address = Convert.ToString(dbReader["Address"]),
+                                City = Convert.ToString(dbReader["City"]),
+                                Country = Convert.ToString(dbReader["Country"]),
+                                HomePhone = Convert.ToString(dbReader["HomePhone"]),
+                                Notes = Convert.ToString(dbReader["Notes"]),
+                                PhotoPath = Convert.ToString(dbReader["PhotoPath"]),
+                                Password = Convert.ToString(dbReader["Password"])
+                            });
+                    }
+                }
+                connection.Close();
             }
-            if (isUpdate)
+            if (type == "Edit")
             {
-                return cout == 1 ? true : false;
+                if (data.Count > 1)
+                    return false;
             }
             else
-            {
-                return cout == 0 ? true : false;
-            }
+                if (data.Count > 0)
+                return false;
+            return true;
+        }
+
+        private List<Employee> List(string v)
+        {
+            throw new NotImplementedException();
         }
 
         public bool CheckLogin(string email, string pass)
@@ -160,7 +193,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return count > 0;
         }
 
-        public int Count(string searchValue)
+        public int Count(string searchValue, string country)
         {
             int count = 0;
             if (!string.IsNullOrEmpty(searchValue))
@@ -171,12 +204,12 @@ namespace LiteCommerce.DataLayers.SqlServer
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.CommandText = @"SELECT COUNT(*) FROM dbo.Employees
-                                       WHERE (@searchValue = N'') OR (LastName LIKE @searchValue)
-                                    OR (FirstName LIKE @searchValue)";
+                                       WHERE (@searchValue = N'B') OR ((LastName LIKE @searchValue)
+                                    OR (FirstName LIKE @searchValue)) and (Country = @country)";
                     cmd.CommandType = System.Data.CommandType.Text;
                     cmd.Connection = connection;
                     cmd.Parameters.AddWithValue("@searchValue", searchValue);
-
+                    cmd.Parameters.AddWithValue("@country", country);
                     count = Convert.ToInt32(cmd.ExecuteScalar());
                 }
                 connection.Close();
@@ -250,7 +283,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
 
-        public List<Employee> List(string searchValue)
+        public List<Employee> List(int page, int pageSize, string searchValue, string country)
         {
             List<Employee> data = new List<Employee>();
 
@@ -262,12 +295,23 @@ namespace LiteCommerce.DataLayers.SqlServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"SELECT * FROM dbo.Employees
-                                    WHERE (@searchValue = N'') OR (LastName LIKE @searchValue)
-                                    OR (FirstName LIKE @searchValue)";
-                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.CommandText = @"SELECT * 
+                                from
+                                (
+                                    select row_number() over(order by FirstName) as RowNumber,
+                                            Employees.*
+                                    from Employees
+                                    where ((@searchValue = N'') OR (LastName LIKE @searchValue)
+                                    OR (FirstName LIKE @searchValue)) AND ((@country=N'') OR (Country = @country))
+                                ) as t
+                                where t.RowNumber between  (@page - 1) * @pageSize + 1 and @page * @pageSize
+                                order by t.RowNumber";
+                    cmd.CommandType = CommandType.Text;
                     cmd.Connection = connection;
+                    cmd.Parameters.AddWithValue("@page", page);
+                    cmd.Parameters.AddWithValue("@pageSize", pageSize);
                     cmd.Parameters.AddWithValue("@searchValue", searchValue);
+                    cmd.Parameters.AddWithValue("@country", country);
 
                     using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
@@ -309,7 +353,6 @@ namespace LiteCommerce.DataLayers.SqlServer
 	                                    FirstName = @FirstName,
 	                                    Title = @Title,
                                         BirthDate = @BirthDate,
-	                                    HireDate = @HireDate,
                                         Email = @Email,
                                         Address = @Address, 
                                         City = @City,
@@ -325,7 +368,6 @@ namespace LiteCommerce.DataLayers.SqlServer
                 cmd.Parameters.AddWithValue("FirstName", employee.FirstName);
                 cmd.Parameters.AddWithValue("Title", employee.Title);
                 cmd.Parameters.AddWithValue("BirthDate", employee.BirthDate);
-                cmd.Parameters.AddWithValue("HireDate", employee.HireDate);
                 cmd.Parameters.AddWithValue("Email", employee.Email);
                 cmd.Parameters.AddWithValue("Address", employee.Address);
                 cmd.Parameters.AddWithValue("City", employee.City);

@@ -23,7 +23,7 @@
     <form action="~/Category/Delete" method="post">
         <div class="row" style="margin-bottom: 50px;">
             <div class="col-sm-8">
-                There are @Model.RowCount category
+                There are <b>@Model.RowCount </b> categories. Page @Model.Page on @Model.PageCount
             </div>
             <div class="col-md-4 text-right">
                 <div class="btn-group">
@@ -68,6 +68,16 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="~/Category?page=1&searchValue=@Model.SearchValue"><i class="fa fa-angle-double-left"></i></a></li>
+                @for (int page = 1; page <= Model.PageCount; page++)
+                {
+                    <li><a href="~/Category?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                }
+                <li><a href="~/Category?page=@Model.PageCount&searchValue=@Model.SearchValue"><i class="fa fa-angle-double-right"></i></a></li>
+            </ul>
         </div>
     </form>
 </div>

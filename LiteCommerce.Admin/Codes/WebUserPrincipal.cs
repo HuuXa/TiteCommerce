@@ -93,7 +93,15 @@ namespace LiteCommerce.Admin
                     GroupName = WebUserRoles.ANONYMOUS,
                     FullName = "",
                     Photo = "",
-                    Title = ""
+                    Title = "",
+                    LastName = "",
+                    FirstName = "",
+                    Address = "",
+                    City = "",
+                    Country = "",
+                    HomePhone = "",
+                    Password = "",
+                    Email = ""
                 })
             {
             }

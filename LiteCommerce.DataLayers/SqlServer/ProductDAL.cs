@@ -3,9 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Hosting;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
@@ -18,48 +21,60 @@ namespace LiteCommerce.DataLayers.SqlServer
             this.connectionString = connectionString;
         }
 
-        public int Add(Product product)
+        public int Add(Product product, HttpPostedFileBase file)
         {
-            int productId = 0;
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            if (product.PhotoPath != "")
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(HostingEnvironment.MapPath("~/Images"), fileName);
+                file.SaveAs(path);
+                var position = path.IndexOf("Images");
+                var img = path.Substring(position);
+                path = "\\" + img;
+                product.PhotoPath = path;
+            }
+            int ProductID = 0;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"INSERT INTO Products
                                           (
-	                                          ProductName,
-	                                          SupplierID,
-	                                          CategoryID,
-	                                          QuantityPerUnit,
-	                                          UnitPrice,
-	                                          Descriptions,
-	                                          PhotoPath
+                                                ProductName,
+                                                SupplierID,
+                                                CategoryID,
+                                                QuantityPerUnit,
+                                                UnitPrice,
+                                                Descriptions,
+                                                PhotoPath
+
                                           )
                                           VALUES
                                           (
-	                                          @productName,
-	                                          @supplierID,
-	                                          @categoryID,
-	                                          @quantityPerUnit,
-	                                          @unitPrice,
-	                                          @descriptions,
-	                                          @photoPath
+                                                @ProductName,
+                                                @SupplierID,
+                                                @CategoryID,
+                                                @QuantityPerUnit,
+                                                @UnitPrice,
+                                                @Descriptions,
+                                                @PhotoPath
                                           );
                                           SELECT @@IDENTITY;";
-                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
-                cmd.Parameters.AddWithValue("productName", product.ProductName);
-                cmd.Parameters.AddWithValue("supplierID", product.SupplierID);
-                cmd.Parameters.AddWithValue("categoryID", product.CategoryID);
-                cmd.Parameters.AddWithValue("quantityPerUnit", product.QuantityPerUnit);
-                cmd.Parameters.AddWithValue("unitPrice", product.UnitPrice);
-                cmd.Parameters.AddWithValue("descriptions", product.Descriptions);
-                cmd.Parameters.AddWithValue("photoPath", product.PhotoPath);
+                cmd.Parameters.AddWithValue("@ProductName", product.ProductName);
+                cmd.Parameters.AddWithValue("@SupplierID", product.SupplierID);
+                cmd.Parameters.AddWithValue("@CategoryID", product.CategoryID);
+                cmd.Parameters.AddWithValue("@QuantityPerUnit", product.QuantityPerUnit);
+                cmd.Parameters.AddWithValue("@UnitPrice", product.UnitPrice);
+                cmd.Parameters.AddWithValue("@Descriptions", product.Descriptions);
+                cmd.Parameters.AddWithValue("@PhotoPath", product.PhotoPath);
 
-                productId = Convert.ToInt32(cmd.ExecuteScalar());
+                ProductID = Convert.ToInt32(cmd.ExecuteScalar());
+
                 connection.Close();
             }
-            return productId;
+            return ProductID;
         }
 
         /// <summary>
@@ -67,8 +82,16 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public int Count(string searchValue)
+        public int Count(string searchValue, string categoryId, string supplierId)
         {
+          if(categoryId == "0")
+            {
+                categoryId = null;
+            }
+            if (supplierId == "0")
+            {
+                supplierId = null;
+            }
             int count = 0;
             if (!string.IsNullOrEmpty(searchValue))
                 searchValue = "%" + searchValue + "%";
@@ -77,12 +100,16 @@ namespace LiteCommerce.DataLayers.SqlServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"SELECT COUNT(*) FROM dbo.Products
-                                       WHERE (@searchValue = N'') OR (ProductName LIKE @searchValue)";
+                    cmd.CommandText = @"SELECT Count(*) 
+                                    FROM Products 
+                                    WHERE ((@searchValue = N'') OR (ProductName LIKE @searchValue))
+                                            AND ((@SupplierID= N'') OR (SupplierID = @supplierID)) 
+                                            AND ((@CategoryID= N'') OR (CategoryID = @categoryID))";
                     cmd.CommandType = System.Data.CommandType.Text;
                     cmd.Connection = connection;
                     cmd.Parameters.AddWithValue("@searchValue", searchValue);
-
+                    cmd.Parameters.AddWithValue("@categoryID", Convert.ToInt16(categoryId));
+                    cmd.Parameters.AddWithValue("@supplierID", Convert.ToInt16(supplierId));
                     count = Convert.ToInt32(cmd.ExecuteScalar());
                 }
                 connection.Close();
@@ -161,13 +188,15 @@ namespace LiteCommerce.DataLayers.SqlServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"SELECT * FROM 
-                                        (
-	                                        SELECT *, ROW_NUMBER() OVER(ORDER BY ProductID) AS RowNumber
-	                                        FROM dbo.Products
-	                                        WHERE (@searchValue = N'') OR (ProductName LIKE @searchValue) AND (CategoryID = @categoryId) AND (SupplierID = @supplierId)
-                                        )AS t  WHERE t.RowNumber BETWEEN (@page - 1) * @pageSize + 1 AND (@page * @pageSize)
-                                        ORDER BY t.RowNumber";
+                    cmd.CommandText = @"SELECT *            
+                                    FROM 
+                                    (
+                                        SELECT *, ROW_NUMBER() OVER (ORDER BY ProductID) AS RowNumber 
+                                        FROM dbo.Products
+                                        WHERE ((@searchValue = N'') OR (ProductName LIKE @searchValue))
+                                            AND ((@SupplierID= N'') OR (SupplierID = @supplierID)) 
+                                            AND ((@CategoryID= N'') OR (CategoryID = @categoryID)) 
+                                    )AS t WHERE t.RowNumber BETWEEN (@page - 1) * @pageSize + 1 AND (@page * @pageSize)";
                     cmd.CommandType = System.Data.CommandType.Text;
                     cmd.Connection = connection;
                     cmd.Parameters.AddWithValue("@page", page);
@@ -207,7 +236,7 @@ namespace LiteCommerce.DataLayers.SqlServer
                 connection.Open();
 
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"UPDATE dbo.Suppliers SET ProductName = @ProductName, SupplierID = @SupplierID, 
+                cmd.CommandText = @"UPDATE dbo.Products SET ProductName = @ProductName, SupplierID = @SupplierID, 
                                     CategoryID = @CategoryID, QuantityPerUnit = @QuantityPerUnit, UnitPrice = @UnitPrice, 
                                     Descriptions = @Descriptions, PhotoPath = @PhotoPath WHERE ProductID = @ProductID";
                 cmd.CommandType = CommandType.Text;

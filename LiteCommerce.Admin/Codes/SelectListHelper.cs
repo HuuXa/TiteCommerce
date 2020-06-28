@@ -68,9 +68,9 @@ namespace LiteCommerce.Admin
             List<SelectListItem> list = new List<SelectListItem>();
             if (allowSelectAll)
             {
-                list.Add(new SelectListItem() { Value = "", Text = "All Category" });
+                list.Add(new SelectListItem() { Value = "0", Text = "All Category" });
             }
-            foreach (var item in CatalogBLL.Category_List(""))
+            foreach (var item in CatalogBLL.Category_List(1, CatalogBLL.Category_Count(""), ""))
             {
                 list.Add(new SelectListItem()
                 {

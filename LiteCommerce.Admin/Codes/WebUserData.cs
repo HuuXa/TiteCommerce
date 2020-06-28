@@ -40,13 +40,23 @@ namespace LiteCommerce.Admin
         /// </summary>
         public string Photo { get; set; }
         public string Title { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string HomePhone { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
         /// <summary>
         /// Chuyển thông tin tài khoản đăng nhập thành chuỗi để ghi Cookie
         /// </summary>
         /// <returns></returns>
         public string ToCookieString()
         {
-            return string.Format($"{UserID}|{FullName}|{GroupName}|{LoginTime}|{SessionID}|{ClientIP}|{Photo}|{Title}");
+            return string.Format($"{UserID}|{FullName}|{GroupName}|{LoginTime}|{SessionID}|{ClientIP}|{Photo}|{Title}|{LastName}|{FirstName}|{BirthDate}|{Address}|{City}|{Country}|{HomePhone}|{Password}|{Email}");
+            //|{LastName}|{FirstName}|{BirthDate}|{Address}|{City}|{Country}|{HomePhone}|{Password}
         }
 
         /// <summary>
@@ -59,7 +69,7 @@ namespace LiteCommerce.Admin
             try
             {
                 string[] infos = cookie.Split('|');
-                if (infos.Length == 8)
+                if (infos.Length == 17)
                 {
                     return new WebUserData()
                     {
@@ -70,7 +80,16 @@ namespace LiteCommerce.Admin
                         SessionID = infos[4],
                         ClientIP = infos[5],
                         Photo = infos[6],
-                        Title = infos[7]
+                        Title = infos[7],
+                        LastName = infos[8],
+                        FirstName = infos[9],
+                        BirthDate = Convert.ToDateTime(infos[10]),
+                        Address = infos[11],
+                        City = infos[12],
+                        Country = infos[13],
+                        HomePhone = infos[14],
+                        Password = infos[15],
+                        Email = infos[16],
                     };
                 }
                 else

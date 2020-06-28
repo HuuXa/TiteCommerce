@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Security.Cryptography;
 using System.Text;
+using System.IO;
 
 namespace LiteCommerce.Admin.Controllers
 {
@@ -20,16 +21,94 @@ namespace LiteCommerce.Admin.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            return View();
+            WebUserData userData = User.GetUserData();
+            Employee data = UserAccountBLL.GetProfile(userData.UserID);
+            return View(data);
         }
 
+        [HttpGet]
+        public ActionResult EditAccount(string id)
+        {
+            WebUserData userData = User.GetUserData();
+            id = userData.UserID;
+            if (string.IsNullOrEmpty(id))
+            {
+                ViewBag.Title = "Add new Employee";
+                Employee newEmployee = new Employee();
+                newEmployee.EmployeeID = 0;
+                return View(newEmployee);
+            }
+            else
+            {
+                try
+                {
+                    ViewBag.Title = "Edit Employee";
+                    Employee editEmployee = CatalogBLL.Employee_Get(Convert.ToInt32(id));
+                    if (editEmployee == null)
+                        return RedirectToAction("Index");
+                    return View(editEmployee);
+                }
+                catch (FormatException)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditAccount(Employee model, HttpPostedFileBase fileImage = null)
+        {
+            if (fileImage != null)
+            {
+                string get = DateTime.Now.ToString("ddMMyyyhhmmss");
+                string fileExtension = Path.GetExtension(fileImage.FileName);
+                string fileName = get + fileExtension;
+                string path = Path.Combine(Server.MapPath("~/Images"), fileName);
+                model.PhotoPath = fileName;
+                fileImage.SaveAs(path);
+            }
+            if (fileImage == null)
+            {
+                var getEmployee = HumanResourceBLL.Employee_Get(model.EmployeeID);
+                model.PhotoPath = getEmployee.PhotoPath;
+            }
+
+            bool updateResult = UserAccountBLL.UpdateProfile(model);
+            return RedirectToAction("Index");
+        }
+           [HttpGet]
+        public ActionResult ChangePwd()
+        {
+            return View();
+        }
         /// <summary>
         /// Thay đổi mật khẩu
         /// </summary>
         /// <returns></returns>
-        public ActionResult ChangePwd()
+        [HttpPost]
+        public ActionResult ChangePwd(string email, string oldpass, string newpass, string repeatpass)
         {
-            return View();
+            if (!UserAccountBLL.Check_Pass(email, EncodeMD5.GetMD5(oldpass)))
+            {
+                ModelState.AddModelError("errorPass", "Sai mật khẩu");
+            }
+            if (String.Equals(EncodeMD5.GetMD5(newpass), EncodeMD5.GetMD5(repeatpass)) == false)
+            {
+                ModelState.AddModelError("newPass", "Mật khẩu mới và nhập lại mật khẩu không khớp");
+            }
+            if (!ModelState.IsValid)
+            {
+                ViewBag.oldPass = oldpass;
+                ViewBag.newPass = newpass;
+                ViewBag.repeatPass = repeatpass;
+                return View();
+            }
+            else
+            {
+                bool rs = UserAccountBLL.Change_Pass(email, EncodeMD5.GetMD5(newpass));
+                return RedirectToAction("Index", "Dashboard");
+            }
+            //return Content("OK");
         }
 
         /// <summary>
@@ -51,8 +130,6 @@ namespace LiteCommerce.Admin.Controllers
         [AllowAnonymous]
         public ActionResult Login(/*Account account */string email = "", string password = "")
         {
-     
-
             if (Request.HttpMethod == "GET")
             {
                 return View();
@@ -87,7 +164,17 @@ namespace LiteCommerce.Admin.Controllers
                         LoginTime = DateTime.Now,
                         SessionID = Session.SessionID,
                         ClientIP = Request.UserHostAddress,
-                        Photo = user.Photo
+                        Photo = user.Photo,
+                        Title = user.Title,
+                        LastName = user.LastName,
+                        FirstName = user.FirstName,
+                        BirthDate = user.BirthDate,
+                        Address = user.Address,
+                        City = user.City,
+                        Country = user.Country,
+                        HomePhone = user.HomePhone,
+                        Password = user.Password,
+                        Email = user.Email
                     };
 
 
@@ -110,8 +197,18 @@ namespace LiteCommerce.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [AllowAnonymous]
-        public ActionResult ForgotPwd()
+        public ActionResult ForgotPwd(string email ="")
         {
+            if (email == "")
+            {
+                return View();
+            }
+            if (UserAccountBLL.CheckEmail(email, "Add"))
+            {
+                ModelState.AddModelError("", "Email is not exist");
+                return View();
+            }
+            ModelState.AddModelError("", "Check your email ");
             return View();
         }
     }

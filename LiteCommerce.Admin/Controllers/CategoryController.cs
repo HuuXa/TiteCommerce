@@ -15,12 +15,15 @@ namespace LiteCommerce.Admin.Controllers
         /// Quản lý danh mục
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(string searchValue = "")
+        public ActionResult Index(string searchValue = "", int page = 1)
         {
             var model = new Models.CategoryPaginationResult()
             {
+                Page = page,
+                PageSize = AppSettings.DefaultPageSize,
                 RowCount = CatalogBLL.Category_Count(searchValue),
-                Data = CatalogBLL.Category_List(searchValue)
+                Data = CatalogBLL.Category_List(page, AppSettings.DefaultPageSize, searchValue),
+                SearchValue = searchValue
             };
             return View(model);
         }

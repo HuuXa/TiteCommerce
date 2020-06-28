@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +49,7 @@
     <Compile Include="IEmployeeDAL.cs" />
     <Compile Include="IOrderDAL.cs" />
     <Compile Include="IOrderDetailDAL.cs" />
+    <Compile Include="IProductAttributeDAL.cs" />
     <Compile Include="IProductDAL.cs" />
     <Compile Include="IShipperDAL.cs" />
     <Compile Include="ISupplierDAL.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="SqlServer\EmployeeUserAccountDAL.cs" />
     <Compile Include="SqlServer\OrderDAL.cs" />
     <Compile Include="SqlServer\OrderDetailDAL.cs" />
+    <Compile Include="SqlServer\ProductAttributeDAL.cs" />
     <Compile Include="SqlServer\ProductDAL.cs" />
     <Compile Include="SqlServer\ShipperDAL.cs" />
     <Compile Include="SqlServer\SupplierDAL.cs" />
